@@ -23,6 +23,15 @@ Very primitive version conflict resolution for the foreseeable future
 
 !SLIDE
 
+Add CLJSJS libraries for externs
+
+    @@@clojure
+    [cljsjs/react "15.4.2-2"]
+    [cljsjs/react-dom "15.4.2-2"]
+    [cljsjs/react-dom-server "15.4.2-2"]
+
+!SLIDE
+
 New compiler options `npm-deps`
 
     @@@clojure
@@ -40,6 +49,14 @@ New compiler options `npm-deps`
     (ReactDOM/render app (.getElementById js/document "app"))
 
 `react` and `react-dom` are now namespaces not objects
+
+!SLIDE
+
+Crafting in minecraft
+Install dependencies from npm / yarn (populate world with raw resources)
+Create JavaScript file detailing dependencies and exporting modules (Create crafting recipe)
+Run `node-inputs` over file specifying namespace (Gather all resources and bring them together to be forged into new item)
+Require namespace (????)
 
 !SLIDE
 
