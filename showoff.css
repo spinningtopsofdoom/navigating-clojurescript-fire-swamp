@@ -1,0 +1,17 @@
+.content {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+h1 {
+  border-bottom: 0px !important;
+}
+
+.bullets ul li {
+  text-align: left;
+}
+
+.smbullets ul li {
+  text-align: left;
+}
