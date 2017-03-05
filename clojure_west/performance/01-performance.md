@@ -1,44 +1,64 @@
-# Performance
-## Heuristics and profiling
+# Performance and profiling
 
 !SLIDE
 
-# For quick and dirty checks on the REPL
-
-    @@@ clojure
-    (time
-      (dotimes [_ 1e5]
-        (benchmark-fn)))
+Optimizing without profiling is like trying to find iocane powder (TODO better anology)
 
 !SLIDE
 
-# To profile whole program (e.g. with Chrome Dev tools)
+# We want to profile our application to be a close to the production app as possible while being readable
+
+!SLIDE
+
+# Sample application
+
+    @@@@clojure
+    (ns my.sample.app)
+
+    (defn square [a]
+      (* a a))
+
+    (.log js/console (square 5))
+
+!SLIDE
+
+# The compiler options that strikes the best balance between readability and production quality
 
     @@@ clojure
     {:static-fns true
      :pretty-print true
      :optimizations :simple
-     :source-map "app.js.map"
-     :output-file "app.js"}
+     :source-map "out/app.js.map"
+     :output-file "out/app.js"}
 
 !SLIDE
 
-# `:static-fns true`
-# turns off dynamic function redefinition that is used for function reloading at the REPL
+# `:static-fns false` (reloadable)
+
+    @@@javascript
+    my.sample.app.square.call(null, 5)
+&nbsp;
+# `:static-fns true` (fast)
+
+    @@@javascript
+    my.sample.app.square(5)
+
 
 !SLIDE
 
-# `pretty-print true`
-# makes the generated JavaScript code more readable
-
-# `:source-map "out/app.js.map"`
-# allows you to map the profiled JavaScript code back to ClojureScript code
+## `pretty-print true`
+## makes the generated JavaScript code more readable
+&nbsp;
+## `:source-map "out/app.js.map"`
+## allows you to map the profiled JavaScript code back to ClojureScript code
 
 !SLIDE
 
-# `:optimizations simple`
-# `:advanced`  optimizations does global optimizations for code size at the expense of speed. The renaming done for code shrinkage makes debugging considerably more difficult
-# `:none` and `:whitespace` do not perform any optimizations (TODO exand here)
+## `:optimizations simple`
+&nbsp;
+## `:advanced`  optimizations aggressively minimizes code size often at the expense of performance
+&nbsp;
+## `:none` and `:whitespace`selections do not perform any optimizations
 
 !SLIDE
 
@@ -54,39 +74,64 @@
 !SLIDE
 
 # Typical performance bottlenecks
-## Only check if you're making a library or have confirmed a hotspot through profiling
+## Check these only in libraries and confirmed code hotspots
 
 !SLIDE
 
-# Too much Allocation
-- More costly then updating in place
+## Clojure truth vs JavaScript truth
+
+    @@@clojure
+    (def count 5)
+    (when count
+      (.log js/console "beep boop")
+
+&nbsp;
+
+    @@@javascript
+    var count = 5;
+    if (cljs.core_truth(5)) {
+        console.log("beep boop");
+    }
+
+`cljs.core._truth` checks if `count` is `nil` or `false`
+
+!SLIDE
+
+## The fix is simple use a boolean type hint
+
+    @@@clojure
+    (def count 5)
+    (when ^:bool count
+      (.log js/console "beep boop")
+
+&nbsp;
+
+    @@@javascript
+    var count = 5;
+    if (5) {
+        console.log("beep boop");
+    }
+
+!SLIDE
+
+# Over Allocation
+## Commoner is ClojureScript than JavaScript due to immutability and sequence abstractions
+
+## Downsides
 - Triggers Garbage Collection more often
 - Unfriendly towards CPU caches
 
 !SLIDE
 
-# Change long data pipelines to transducers
-
-    @@@@ clojure
-    TODO write pipleline here
-
-!SLIDE
-
-# Use Transients instead of persistent collections
-
-    @@@ clojure
-    TODO example of transients
+# Fixes
+## Transducers
+Removes intermediate collections in data pipelines
+##Transients
+Operations update in place rather then making many new objects per operation
 
 !SLIDE
 
-# ClojureScript truth vs JavaScript truth
-## In ClojureScript only `nil and `false` are false. Necessitates `cljs.core.truth_` function much slower then JavaScript truth check
-
-!SLIDE
-
-Help the compiler by adding a `^boolean` type hint where needed. You can check generated code for `cljs.core.truth`_ functions
-
-!SLIDE
-
+# JIT Profiling
+TODO see if time allows
 Warning going into pretty deep waters
 IRHydra JIT bytecode example and using JavaScript Core profile
