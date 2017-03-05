@@ -4,6 +4,7 @@
       {"section":"clojure_west/intro"},
       {"section":"clojure_west/performance"},
       {"section":"clojure_west/closure-library"},
+      {"section":"clojure_west/dynamic-modules"},
       {"section":"clojure_west/externs"},
       {"section":"clojure_west/node-modules"},
       {"section":"clojure_west/outro"}
