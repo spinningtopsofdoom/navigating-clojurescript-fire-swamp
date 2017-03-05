@@ -4,6 +4,7 @@
 !SLIDE
 
 Google Closure Library comes packaged with ClojureScript
+
 - Batteries Included Like other languages (e.g. Python, Ruby)
 - Easily added to project
 - Code is easily optimized by Google Closure Compiler
@@ -15,9 +16,15 @@ It has all the functionality you could want in a standard library, except for do
 !SLIDE
 
 It's worth looking around before searching for third party solution
+
 - AJAX classic and using new fetch API
-- Debounce, throttle, delay, once
-- URI parsing and building
+- `debounce`, `throttle`, `delay` with customizable Objects
+- `DateTime` `UTCDateTime`, `Interval`, `URI`
+
+!SLIDE
+
+## `goog.array` and `goog.iter`are like Closure standard library for collections
+`cycle`, `dropWhile`, `groupBy`, `reduce`, `every`
 
 !SLIDE
 
@@ -27,12 +34,4 @@ It's worth looking around before searching for third party solution
 
 !SLIDE
 
-# `goog.array` all the functionality you could want for array
-Methods for manipulating a sorted array (e.g. `binaryInsert`, `binaryRemove`)
-Several analogues of ClojureScript functions `repeat`, `map`, `concat`
-
-!SLIDE
-
-# `goog.iter` useful for dealing with JavaScript iterators
-About as much functionality as ClojureScript standard library has for sequences
-`cycle`, `dropWhile`, `groupBy`, `reduce`, `every`
+TODO maybe `goog.define`
