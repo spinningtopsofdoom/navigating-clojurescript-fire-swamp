@@ -2,47 +2,65 @@
 
 !SLIDE
 
-Optimizing without profiling is like trying to find iocane powder (TODO better anology)
+# To paraphrase a common saying
+
+## Solve a developers performance problem and the code will run fast for a day
+
+## Teach a developer a performance heuristic and it'll be applied indiscriminately everywhere forever
 
 !SLIDE
 
-# We want to profile our application to be a close to the production app as possible while being readable
+# Performant JavaScript code is a slippery __mutable__ thing
 
 !SLIDE
 
-# Sample application
+# Example: JavaScript Immutable Strings
 
-    @@@@clojure
-    (ns my.sample.app)
+    @@@javascript
+    var result = ["this", "is", "slow"].join("");
 
-    (defn square [a]
-      (* a a))
+&nbsp;
 
-    (.log js/console (square 5))
+    @@@javascript
+    var result = "this" + "is" + "fast";
 
 !SLIDE
 
 # The compiler options that strikes the best balance between readability and production quality
 
     @@@ clojure
-    {:static-fns true
-     :pretty-print true
+    {;; Compile to production quality code
+     :static-fns true
      :optimizations :simple
+     ;; Debugging options
+     :pretty-print true
      :source-map "out/app.js.map"
      :output-file "out/app.js"}
 
 !SLIDE
 
-# `:static-fns false` (reloadable)
+# `:static-fns false`
 
     @@@javascript
     my.sample.app.square.call(null, 5)
+
+## Re definable and reloadable functions
+
 &nbsp;
-# `:static-fns true` (fast)
+# `:static-fns true`
 
     @@@javascript
     my.sample.app.square(5)
 
+## Fast Direct functions invocation
+
+!SLIDE
+
+## `:optimizations simple`
+&nbsp;
+## `:none` and `:whitespace`selections do not perform any optimizations
+&nbsp;
+## `:advanced`  optimizations aggressive renaming makes for impenetrable JavaScript
 
 !SLIDE
 
@@ -52,13 +70,6 @@ Optimizing without profiling is like trying to find iocane powder (TODO better a
 ## `:source-map "out/app.js.map"`
 ## allows you to map the profiled JavaScript code back to ClojureScript code
 
-!SLIDE
-
-## `:optimizations simple`
-&nbsp;
-## `:advanced`  optimizations aggressively minimizes code size often at the expense of performance
-&nbsp;
-## `:none` and `:whitespace`selections do not perform any optimizations
 
 !SLIDE
 
