@@ -6,15 +6,11 @@
 
 !SLIDE
 
-### Ground to Cover
+# Everything is as of ClojureScript `1.9.494`
 
-- Profiling and performance
-- Google Closure Library
-- ClojureScript modules
-- Externs
-- Loading Node Modules
+!SLIDE
 
-### As of ClojureScript `1.9.494`
+From a JavaScript developers perspective ClojureScipt's tool chain seems impossible
 
 !SLIDE
 
@@ -34,7 +30,7 @@ Advanced Dead Code elimination and code splitting right out of the box
 
 !SLIDE
 
-We're feeling pretty good about ourselves
+Now that we're full of hubris a Nemesis will come along to humble us
 
 !SLIDE
 
@@ -45,3 +41,7 @@ Then you encounter your first `ro.us`
     "ro.us is not a function"
 
 and spend hours hunting for a bug in externs
+
+!SLIDE
+
+# Let's start our journey through the fire swamps of Clojure
