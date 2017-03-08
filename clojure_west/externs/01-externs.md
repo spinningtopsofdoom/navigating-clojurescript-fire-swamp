@@ -20,33 +20,17 @@ Calling `greeting.js` from ClojureScript
 
 !SLIDE
 
-Optimizations `:none`
-
-`foo`.`bar`(`"hello"`)
-
-Google Closure Compiler
-
-`foo`.`bar`(`"hello"`)
+Everything works fine for development, testing, QA, and production builds
 
 !SLIDE
 
-Optimizations `:whitespace`
+Production application
 
-`foo`.`bar`(`"hello"`)
+    @@@javascript
+    foo.w("hello");
+    "foo.w is not a function"
 
-Google Closure Compiler
-
-`foo`.`bar`(`"hello"`)
-
-!SLIDE
-
-Optimizations `:simple`
-
-`foo`.`bar`(`"hello"`)
-
-Google Closure Compiler
-
-`foo`.`bar`(`"hello"`)
+Why did this only happen?
 
 !SLIDE
 
@@ -58,16 +42,19 @@ Google Closure Compiler
 
 `foo`.`w`(`"hello"`)
 
-!SLIDE
+For advanced compilation Google Closure Compiler is very aggressive renaming to minimize code size
 
-What happened? In `:advanced` optimizations Google Closure Compiler can rename any names and doesn't know about `bar` method on `foo`
-Solution: tell Google Closure Compiler what names it's not allowed to rename (externs file)
 
 !SLIDE
+
+To correct this Google Closure Compiler needs to know what names it's not allowed to mangle
+
+This happens via an "externs" (external) file
 
 Our Externs File
 
     @@@javascript
+    var foo = {};
     foo.bar = function() {};
 
 !SLIDE
@@ -82,20 +69,20 @@ Google Closure Compiler - `foo`.`bar`
 
 !SLIDE
 
-# Problem solved right?
-## Manual Bookkeeping for all Third Party method / functions / variables etc.
+# So all you need to do is go through all your JavaScript libraries and write down all the names they export
+# :(
 
 !SLIDE
 
 Worst Case
 Fully manual
 
-JS Library
+JS Library Most Common case
 Can't Use
 
 !SLIDE
 
-Better Casw
+Better Case
 Uncanny Valley
 Have to manually wireup externs file
 
@@ -120,64 +107,81 @@ New version means redoing everything again.
 
 !SLIDE
 
-3 different sets of maintainers synchronizing across different versions
+What do we do when there is no externs available or the default externs don't cover the library?
 
-!SLIDE
+Two ways to escape the pit of despair
 
-So when there is no externs available or the default externs don't cover the library?
-Are we caught in the pit of despair?
-
-Two solutions
 - Externs inference
 - `cljs-oops` library
 
 !SLIDE
 
 # Externs Inference
-## ClojureScript can generate externs for us. Started at version `1.9.546`
-## Turn on with compiler option `:infer-externs true`
+## ClojureScript can generate externs for us as of `1.9.546`
 
 !SLIDE
 
-Example
+## `:infer-externs true`
+Turns on Externs Inference and writes an externs file `inferred_externs.js`
+## `(set! *warn-on-infer* true)`
+Turns on inference warnings
+
+!SLIDE
+
+Three types of inference warnings
+
+- Use of an unknown JavaScript Object
+    - "Cannot infer target type for ..."
+- Use of a generic JavaScript Object
+    - "Adding extern to Object for ..."
+- Calling an Unknown method or property
+    - "Cannot resolve property ..."
+
+!SLIDE
 
     @@@clojure
     (defn cloudy [outside]
-      (let [clouds (.getClouds outside)]
-        (.getType clouds)))
+      (.getClouds outside))
+
+"Cannot infer target type for ..."
+
+ClojureScript doesn't know what type `outside` is, we need to tell ClojureScript that outside is a `Weather` object
 
 !SLIDE
 
-Turn on Warnings `(set! *warn-on-infer* true)`
+`? outside type` -> `outside`
 
-`? outside type` -> `outside` -> `outside.getClouds()`
-`? cloud type` -> `clouds` -> `clouds.getType()`
+`Weather` -> `outside`
+
+!SLIDE
+
+Type Hint `outside` with `js/Weather`
 
     @@@clojure
-    (defn cloudy [outside]
-      (let [clouds (.getClouds outside)]
-        (.getType clouds)))
-
-Gives warning "Cannot infer target type for ..." when ClojureScript does not know the type of JavsScript object with method (TODO work on this)
+    (defn cloudy [^js/Weather outside]
+      (.getClouds outside))
 
 !SLIDE
-
-`js/Weather` -> `outside` -> `outside.getClouds()`
 
     @@@clojure
     (defn cloudy [^js/Weather outside]
       (let [clouds (.getClouds outside)]
         (.getType clouds)))
 
-New warning "Adding extern to Object for ..." since the return type for `getClouds` is unknown
+"Adding extern to Object for ..."
 
-`js/Weather` -> `outside` -> `outside.getClouds()` -> `? type`
+ClojureScript assumes that the result of `(.getClouds outside)` is a generic JavaScript object.
+ClojureScript is warning that it's writing `Object.getType;` into `inferred_externs.js`
 
 !SLIDE
 
-Add return type for `getClouds`
+`outside.getClouds()` -> `Object`
 
-`js/Weather` -> `outside` -> `outside.getClouds()` -> `js/Clouds`
+`outside.getClouds()` -> `Clouds`
+
+!SLIDE
+
+Add return type to `getClouds` and add `Clouds` externs to `inferred_externs.js`
 
     @@@javascript
     /*
@@ -186,29 +190,28 @@ Add return type for `getClouds`
     Weather.prototype.getClouds;
 
     var Clouds;
-    Clouds.prototype.getHype;
+    Clouds.prototype.getType = function() {};
 
 !SLIDE
 
-New warning "Cannot resolve property ..." when JavaScript type does not have method / property from externs
+    @@@clojure
+    (defn cloudy [^js/Weather outside]
+      (let [clouds (.getClouds outside)]
+        (.frog clouds)))
 
-correct externs definition
+"Cannot resolve property ..."
 
-    @@@javascript
-    Clouds.prototype.getHype;
-
-    @@@javascript
-    Clouds.prototype.getType;
+ClojureScript doesn't know the method / property you're trying to use. The `frog` method is not in the externs file
 
 !SLIDE
 
-TODO Just a CFP for now https://github.com/clojure/clojurescript/wiki/Singleton-Pattern-Externs-Inference-Support
+Change ` (.frog clouds)` to `(.getType clouds)`
 
-For some libraries (e.g. `jQuery` or `D3`) all operations happen on a single interface
+Add `frog` to `inferred_externs.js`
 
-So every operation returns the same type meaning we can prevent all return inference ("Adding extern to Object for ...")
+    @@@javascript
 
-`weather` -> `js/Waether for all methods`
+    Clouds.prototype.frog = function() {};
 
 !SLIDE
 
@@ -223,11 +226,16 @@ Idea is to use `aget` or `goog.object/get` instead of calling methods / properti
       (let [clouds (.call (aget outside "getClouds") outside)]
         (.call (aget clouds "getType") clouds)))
 
+&nbsp;
+
     @@@javascript
     outside.getClouds();
     outside["getClouds"].call(outside); // No optimization
     a.getClouds.call(a); // Simple and Advanced
 
+&nbsp;
+
+    @@@javascript
     clouds.getType();
     clouds["getType"].call(); // No optimization
     b.getType.call(b); // Simple and Advanced
@@ -235,7 +243,9 @@ Idea is to use `aget` or `goog.object/get` instead of calling methods / properti
 !SLIDE
 
 Using `aget` / `goog.object/get` is a very manual and error prone
+
 `cljs-oops`
+
 - automates the process with macros
 - has extensive validation during development
 - emits optimized code during advanced compilation
