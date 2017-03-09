@@ -29,7 +29,7 @@ It's worth looking around before searching for third party solution
 !SLIDE
 
 # `goog.object` great for accessing and manipulating JavaScript objects
-- Safer counterparts `goog.object.get` to `aget` and `aset` to `goog.object.set`
+- Instead of using `aget` and `aset` use  `goog.object.get` and `goog.object.set`
 - Gets compiled away with advanced compilation
 
 !SLIDE
