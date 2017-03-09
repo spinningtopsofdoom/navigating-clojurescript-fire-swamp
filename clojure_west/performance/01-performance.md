@@ -31,6 +31,7 @@
     @@@ clojure
     {;; Compile to production quality code
      :static-fns true
+     :optimize-constants true
      :optimizations :simple
      ;; Debugging options
      :pretty-print true
@@ -39,14 +40,6 @@
 
 !SLIDE
 
-# `:static-fns false`
-
-    @@@javascript
-    my.sample.app.square.call(null, 5)
-
-## Re definable and reloadable functions
-
-&nbsp;
 # `:static-fns true`
 
     @@@javascript
@@ -54,13 +47,25 @@
 
 ## Fast Direct functions invocation
 
+# `:static-fns false`
+
+    @@@javascript
+    my.sample.app.square.call(null, 5)
+
+## Re definable and reloadable functions
+
 !SLIDE
 
-## `:optimizations simple`
-&nbsp;
-## `:none` and `:whitespace`selections do not perform any optimizations
+# `:optimize-constants true`
+## writes symbols and keywords to a separate file to decrease allocations
+
+!SLIDE
+
+## `:none` and `:whitespace`dont do any optimization at all
 &nbsp;
 ## `:advanced`  optimizations aggressive renaming makes for impenetrable JavaScript
+&nbsp;
+## `:optimizations simple` is just right
 
 !SLIDE
 
@@ -68,7 +73,7 @@
 ## makes the generated JavaScript code more readable
 &nbsp;
 ## `:source-map "out/app.js.map"`
-## allows you to map the profiled JavaScript code back to ClojureScript code
+## allows you profile at the ClojureScript level
 
 
 !SLIDE
