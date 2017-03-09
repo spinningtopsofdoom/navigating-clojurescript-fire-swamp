@@ -82,9 +82,3 @@
      :source-map "app.js.map"
      :output-file "app.js"}
 
-!SLIDE
-
-# JIT Profiling
-TODO see if time allows
-Warning going into pretty deep waters
-IRHydra JIT bytecode example and using JavaScript Core profile

@@ -13,4 +13,13 @@ David Nolen
 
 !SLIDE
 
+Things I didn't have time to get to but are neat
+
+# JIT Profiling
+TODO see if time allows
+Warning going into pretty deep waters
+IRHydra JIT bytecode example and using JavaScript Core profile
+
+!SLIDE
+
 # Questions?
