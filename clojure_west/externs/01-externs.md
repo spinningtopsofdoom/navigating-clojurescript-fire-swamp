@@ -262,6 +262,7 @@ Use `goog.object/get` or `aget` instead of calling methods / properties directly
 
     @@@clojure
     (oget home "floor" "living-room")
+    ;; Generated ClojureScript
     (goog.object/get home "floor" "living-room")
 
 !SLIDE
@@ -270,6 +271,7 @@ Use `goog.object/get` or `aget` instead of calling methods / properties directly
 
     @@@clojure
     (oset! home  "floor" "living-room" "300 sqft")
+    ;; Generated ClojureScript
     (goog.object/set home "floor" "living-room" "300 sqft")
 
 !SLIDE
@@ -278,6 +280,7 @@ Use `goog.object/get` or `aget` instead of calling methods / properties directly
 
     @@@clojure
     (ocall foo ["bar" "baz"] 1 2 3)
+    ;; Generated ClojureScript
     (.call (goog.object/get foo "bar" "baz") foo 1 2 3)
 
 !SLIDE
@@ -285,8 +288,9 @@ Use `goog.object/get` or `aget` instead of calling methods / properties directly
 # `oapply`
 
     @@@clojure
-    (oapply foo "bar" "bar" [1 2 3])
-    (.apply (goog.object/get foo "bar" "baz") foo [1 2 3])
+    (oapply foo "bar" "baz" [1 2 3])
+    ;; Generated ClojureScript
+    (.apply (goog.object/get foo "bar" "baz") foo #js [1 2 3])
 
 !SLIDE
 
