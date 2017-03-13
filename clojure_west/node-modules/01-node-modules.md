@@ -2,23 +2,34 @@
 
 !SLIDE
 
-Node modules can now be consumed and compiled by the Google Closure Compiler
+Google Closure Compiler can compile node modules
 
 Current production React and React DOM 53k With ClojureScript via Closure it's 32k
 
 !SLIDE
 
-Version conflict resolution is very primitive and will be for quite some time
+ClojureScript does not manage JavaScript dependency graph
 
-Combining Many Compiled JavaScript libraries will lead to many version conflicts
+## `rainbow`
 
-Wrapping very common JavaScript libraries is currently practical
+- `red@1.4.5`
+- `blue@3.0.0`
+
+## `prism`
+
+- `red@0.13.4`
+- `blue@4.3.1`
+
+## `paint`
+
+- `red@02.0.4`
+- `blue@4.5.0`
 
 !SLIDE
 
 Application development is the big winner
 
-- Version control is easily handled
+- `npm` or `yarn` can manage JavaScript dependencies
 - Compiler can maximize tree shaking and Dead Code Elimination
 
 !SLIDE
@@ -42,6 +53,8 @@ CLJSJS libraries for externs
     [cljsjs/react "15.4.2-2"]
     [cljsjs/react-dom "15.4.2-2"]
     [cljsjs/react-dom-server "15.4.2-2"]
+
+Tells Closure about dynamic (meta programmed) names
 
 !SLIDE
 
@@ -143,11 +156,15 @@ Pass in file as a `foreign-lib` to `cljs.closure/node-inpts`
 # Still very alpha
 ## It's not just ClojureScript that is working at this
 
-## React
+!SLIDE
+
+# Major players integrating Google Closure
+
+## React Fiber
 https://github.com/facebook/react/issues/7925
 
-## Angular
+## Angular Offline Template Compilation
 https://github.com/angular/angular/issues/8550
 
-## Typescript
+## Typescript Compiler to Google Closure
 https://github.com/angular/tsickle
