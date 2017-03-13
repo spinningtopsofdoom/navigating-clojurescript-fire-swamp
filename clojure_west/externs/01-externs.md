@@ -120,8 +120,10 @@ Two ways to escape the pit of despair
 
 !SLIDE
 
+## Compiler Option
 ## `:infer-externs true`
 Turns on Externs Inference and writes an externs file `inferred_externs.js`
+## Infer Waring FLag
 ## `(set! *warn-on-infer* true)`
 Turns on inference warnings
 
@@ -225,7 +227,6 @@ Add `frog` to `inferred_externs.js`
 !SLIDE
 
 # `cljs-oops`
-## Sidestep
 # Sidestep externs entirely using strings
 
 !SLIDE
@@ -249,17 +250,7 @@ Use `goog.object/get` or `aget` instead of calling methods / properties directly
 !SLIDE
 
 # Use in small doses
-## Defaults Google Closure Advanced Optimization
-
-!SLIDE
-
-Using `goog.object/get` is a very manual and error prone
-
-`cljs-oops`
-
-- automates the process with macros
-- has extensive validation during development
-- emits optimized code during advanced compilation
+## Defeats Google Closure Advanced Optimization
 
 !SLIDE
 
@@ -306,7 +297,7 @@ Using `goog.object/get` is a very manual and error prone
 
 !SLIDE
 
-# Useful for Native JavaScript Objects
+# Navigating JavaScript Objects
 
 - `?` soft operation returns `nil` for non existent key
 

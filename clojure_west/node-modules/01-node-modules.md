@@ -42,8 +42,10 @@ Install `module-deps` library to resolve node module dependencies
 
 !SLIDE
 
-Due to how modern JavaScript libraries are built node externs (e.g. for `process`) may be needed as well.
-You can get the https://github.com/dcodeIO/node.js-closure-compiler-externs
+## Externs for node needed
+
+- JavaScript use node to compile JavaScript
+- Available at https://github.com/dcodeIO/node.js-closure-compiler-externs
 
 !SLIDE
 
