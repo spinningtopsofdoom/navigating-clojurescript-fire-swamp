@@ -44,7 +44,6 @@ Google Closure Compiler
 
 For advanced compilation Google Closure Compiler is very aggressive renaming to minimize code size
 
-
 !SLIDE
 
 To correct this Google Closure Compiler needs to know what names it's not allowed to mangle
@@ -181,6 +180,16 @@ ClojureScript is warning that it's writing `Object.getType;` into `inferred_exte
 
 !SLIDE
 
+Wrap `getClouds` function in ClojureScript
+
+    @@@clojure
+    (defn ^js/Clouds get-clouds [^js/Weather outside]
+      (.getClouds outside))
+
+    (defn cloudy [outside]
+      (let [clouds (get-clouds outside)]
+        (.getType clouds)))
+
 Add return type to `getClouds` and add `Clouds` externs to `inferred_externs.js`
 
     @@@javascript
@@ -215,34 +224,36 @@ Add `frog` to `inferred_externs.js`
 
 !SLIDE
 
-# Sidestep externs entirely with `cljs-oops` library
+# `cljs-oops`
+## Sidestep
+# Sidestep externs entirely using strings
 
 !SLIDE
 
-Idea is to use `aget` or `goog.object/get` instead of calling methods / properties directly
+Use `goog.object/get` or `aget` instead of calling methods / properties directly
 
     @@@clojure
+    (ns myy.ap
+     (:require [goog.object :as gobj]))
     (defn cloudy [outside]
-      (let [clouds (.call (aget outside "getClouds") outside)]
-        (.call (aget clouds "getType") clouds)))
+      (.call (gobj/get outside "getClouds") outside))
 
 &nbsp;
 
     @@@javascript
-    outside.getClouds();
-    outside["getClouds"].call(outside); // No optimization
-    a.getClouds.call(a); // Simple and Advanced
-
-&nbsp;
-
-    @@@javascript
-    clouds.getType();
-    clouds["getType"].call(); // No optimization
-    b.getType.call(b); // Simple and Advanced
+    // Generated JavaScript
+    gobj.get(outside, "getClouds").call(outside);
+    // Simple or Advanced Compilation
+    (null !== a && "getClouds" in a ? a.getClouds : void 0).call(a);
 
 !SLIDE
 
-Using `aget` / `goog.object/get` is a very manual and error prone
+# Use in small doses
+## Defaults Google Closure Advanced Optimization
+
+!SLIDE
+
+Using `goog.object/get` is a very manual and error prone
 
 `cljs-oops`
 
@@ -252,38 +263,67 @@ Using `aget` / `goog.object/get` is a very manual and error prone
 
 !SLIDE
 
-`cljs-oops` covers `get`, `set`, `call` and `apply`
-
-    @@@clojure
-    (ocall foo ["bar" "baz"] 1 2 3)
-    (.call (aget foo "bar" "baz") foo 1 2 3)
-
-    (oapply foo "bar" "bar" [1 2 3])
-    (.apply (aget foo "bar" "baz") foo [1 2 3])
-
-    (oget home "floor" "living-room")
-    (aget home "floor" "living-room")
-
-    (oset! home  "floor" "living-room" "300 sqft")
-    (aset home "floor" "living-room" "300 sqft")
+# `cljs-oops` provides macros for automations
 
 !SLIDE
 
-Not just useful for external JavaScript incredibly useful for native JavaScript objects built dynamically
+# `oget`
 
-Additional functionality for JavaScript objects
-- `?` soft operation that stops when key does not exist
+    @@@clojure
+    (oget home "floor" "living-room")
+    (goog.object/get home "floor" "living-room")
+
+!SLIDE
+
+# `oset!`
+
+    @@@clojure
+    (oset! home  "floor" "living-room" "300 sqft")
+    (goog.object/set home "floor" "living-room" "300 sqft")
+
+!SLIDE
+
+# `ocall`
+
+    @@@clojure
+    (ocall foo ["bar" "baz"] 1 2 3)
+    (.call (goog.object/get foo "bar" "baz") foo 1 2 3)
+
+!SLIDE
+
+# `oapply`
+
+    @@@clojure
+    (oapply foo "bar" "bar" [1 2 3])
+    (.apply (goog.object/get foo "bar" "baz") foo [1 2 3])
+
+!SLIDE
+
+# `cljs-oops` not just automation
+
+## extensive validation during development
+## emits optimized code during advanced compilation
+
+!SLIDE
+
+# Useful for Native JavaScript Objects
+
+- `?` soft operation returns `nil` for non existent key
 
         @@@clojure
         (oget #js {:house {:bedroom {:color "red"}}} "house" "?livingroom" "color")
         ;; => nil
-- `!` punch operator, if the key does not exist create it
+
+- `!` punch operator, creates key when it does not exist
 
         @@@clojure
         (oset! #js {:house {:bedroom {:color "red"}}} "house" "!livingroom" "!color" "green")
         ;; => #js {:house {:bedroom {:color "red"}} {:livingroom {:color "green"}}}
+!SLIDE
+
+## CLJSJS libraries or externs file always the best options
 
 !SLIDE
 
-Check CLJSJS first then see if externs have already been created
-Use externs inference or `cljs-oops` when there are no externs or the default externs don't cover what you need
+## Externs Inference and `cljs-oops` opens up JavaScript ecosystem
+### Most JavaScript libraries don't have externs
