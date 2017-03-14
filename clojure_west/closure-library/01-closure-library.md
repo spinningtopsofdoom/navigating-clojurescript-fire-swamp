@@ -51,9 +51,10 @@ Google Closure Library comes packaged with ClojureScript
 
 `clojure-defines {'my.setting.QA true}`
 
+Overrides `goog-define`
+
 !SLIDE
 
-# Complier setting overrides `goog.define`
 
 !SLIDE
 
@@ -73,7 +74,7 @@ Google Closure Library comes packaged with ClojureScript
         (identical? USER "supervisor") #{"users"}
         #{}))
 
-## `identical?`   needed for Dead Code elimination
+## `identical?` needed for Dead Code elimination
 
 !SLIDE
 
