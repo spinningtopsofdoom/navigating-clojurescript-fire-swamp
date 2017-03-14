@@ -221,30 +221,32 @@ Change ` (.frog clouds)` to `(.getType clouds)`
 Add `frog` to `inferred_externs.js`
 
     @@@javascript
-
     Clouds.prototype.frog = function() {};
 
 !SLIDE
 
 # `cljs-oops`
-# Sidestep externs entirely using strings
+# Sidestep externs entirely using string names
 
 !SLIDE
 
-Use `goog.object/get` or `aget` instead of calling methods / properties directly
+## Idea Use `goog.object/get` or `aget`
 
     @@@clojure
-    (ns myy.ap
+    (ns my.app
      (:require [goog.object :as gobj]))
+
     (defn cloudy [outside]
       (.call (gobj/get outside "getClouds") outside))
 
-&nbsp;
+## Generated JavaScript
 
     @@@javascript
-    // Generated JavaScript
     goog.object.get(outside, "getClouds").call(outside);
-    // Simple or Advanced Compilation
+
+## Advanced Compilation
+
+    @@@javascript
     (null !== a && "getClouds" in a ? a.getClouds : void 0).call(a);
 
 !SLIDE
@@ -254,43 +256,43 @@ Use `goog.object/get` or `aget` instead of calling methods / properties directly
 
 !SLIDE
 
-# `cljs-oops` provides macros for automations
+# `cljs-oops` provides macros for automation
 
 !SLIDE
 
 # `oget`
 
     @@@clojure
+    (def home #js {"floor" #js {"living-room" "500 sqft"}})
     (oget home "floor" "living-room")
-    ;; Generated ClojureScript
-    (goog.object/get home "floor" "living-room")
+    ;; => "500 sqft"
 
 !SLIDE
 
 # `oset!`
 
     @@@clojure
+    (def home #js {"floor" #js {"living-room" "500 sqft"}})
     (oset! home  "floor" "living-room" "300 sqft")
-    ;; Generated ClojureScript
-    (goog.object/set home "floor" "living-room" "300 sqft")
+    ;; => #js {"floor" #js {"living-room" "300 sqft"}}
 
 !SLIDE
 
 # `ocall`
 
     @@@clojure
-    (ocall foo ["bar" "baz"] 1 2 3)
-    ;; Generated ClojureScript
-    (.call (goog.object/get foo "bar" "baz") foo 1 2 3)
+    (def car #js {"ispy" (fn [desc item] (str "I see a " desc " " item))})
+    (ocall car ["ispy"] "red" "barn")
+    ;; => "I see a red car"
 
 !SLIDE
 
 # `oapply`
 
     @@@clojure
-    (oapply foo "bar" "baz" [1 2 3])
-    ;; Generated ClojureScript
-    (.apply (goog.object/get foo "bar" "baz") foo #js [1 2 3])
+    (def bill #js {"total" (fn [& items] (reduce + items))})
+    (oapply bill "total" [1 2 3])
+    ;; => 6
 
 !SLIDE
 
@@ -302,23 +304,52 @@ Use `goog.object/get` or `aget` instead of calling methods / properties directly
 !SLIDE
 
 # Navigating JavaScript Objects
+## Access Modifiers
 
-- `?` soft operation returns `nil` for non existent key
+- `?` soft access, returns `nil` for non existent key
+    - Change `key` to `?key`
+- `!` punching, creates key when it does not exist
+    - Change `key` to `!key`
 
-        @@@clojure
-        (oget #js {:house {:bedroom {:color "red"}}} "house" "?livingroom" "color")
-        ;; => nil
 
-- `!` punch operator, creates key when it does not exist
-
-        @@@clojure
-        (oset! #js {:house {:bedroom {:color "red"}}} "house" "!livingroom" "!color" "green")
-        ;; => #js {:house {:bedroom {:color "red"}} {:livingroom {:color "green"}}}
 !SLIDE
 
-## CLJSJS libraries or externs file always the best options
+# `?` soft access
+## Like `get-in`
+
+        @@@clojure
+        (def home #js {"house" #js {"bedroom" #js {:color "red"}}})
+        (oget home "house" "?livingroom")
+        ;; => nil
+
+&nbsp;
+
+        @@@clojure
+        (def home {:house {:bedroom {:color "red"}}})
+        (get-in home [:house :living-room])
+        ;; => nil
+!SLIDE
+
+# `!` punching
+## Like `assoc-in`
+
+        @@@clojure
+        (def home #js {})
+        (oset! home "!house" "!livingroom" "!color" "green")
+        ;; => #js {"house" #js {"livingroom" #js {"color" "green"}}}
+
+&nbsp;
+
+        @@@clojure
+        (def home {})
+        (assoc-in home [:house :livingroom :color] "green")
+        ;; => {:house {:livingroom {:color "green"}}}
 
 !SLIDE
 
 ## Externs Inference and `cljs-oops` opens up JavaScript ecosystem
 ### Most JavaScript libraries don't have externs
+
+!SLIDE
+
+## CLJSJS libraries and  externs file always the best options
