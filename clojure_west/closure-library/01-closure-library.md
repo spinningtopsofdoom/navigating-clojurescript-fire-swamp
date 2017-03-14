@@ -18,66 +18,94 @@ Google Closure Library comes packaged with ClojureScript
 
 ## Great buried gems
 
-- AJAX classic and using new fetch API
-- `debounce`, `throttle`, `delay` with customizable Objects
-- `DateTime` `UTCDateTime`, `Interval`, `URI`
+- AJAX
+    - classic `XhrIo`
+    - New fetch API `FetchXmlHttp`
+- Async functionality
+    - `debounce`, `throttle`, `delay`
+- Date and Time
+    - `DateTime`, `UTCDateTime`, `Interval`
+- JavaScript Collections
+    - `array`, `iter`
 
 !SLIDE
 
 # `goog.object`
-- Robust interaction with JavaScript Objects
-- Safe for every compilation choice
+- Safe robust interaction with JavaScript Objects
 - Use  `goog.object.get` and `goog.object.set` instead of `aget` and `aset`
 
 !SLIDE
 
-## Parameterize builds with `goog.define`
-### `goog-define`ClojureScript  wrapper function
-
-!SLIDE
-
-# Flags
+## Parameterize builds with `goog-define`
 
     @@@clojure
     (ns my.setting)
 
-    (goog-define QA false)
-
-    (if ^boolean QA
-      (.log js/console "QA")
-      (.log js/console "Not QA")
-
-## Compiler Setting
-
-`clojure-defines {'my.setting.QA true}`
-
-Overrides `goog-define`
+    (goog-define LOG false)
 
 !SLIDE
 
+# Override `goog-define` wtih `closure-defines`
+## Complier Setting
+
+    @@@clojure
+    :clojure-defines {'my.setting.LOG true}
 
 !SLIDE
 
-# Product Features
+# Development vs Production settings
+
+    @@@clojure
+    (ns my.api)
+
+    (goog-define TIMEOUT 300)
+
+    (defn load-settings []
+      (ajax-call {:imeout TIMEOUT}))
+
+&nbsp;
+
+    @@@clojure
+    :clojure-defines {'my.api.TIMEOUT 5000}
+
+
+!SLIDE
+
+# Feature Flags
+## Advanced Compilation removes unused features
+
+!SLIDE
+
+# Boolean Flag
+## `^boolean` type hint for advanced compilation
+
+    @@@clojure
+    (ns my.setting)
+
+    (goog-define ADMIN false)
+
+    (def permisssions
+      (if ^boolean ADMIN
+        {:access :all}
+        {:access :user}
+
+!SLIDE
+
+# Enum Flag
+## `identical?` for advanced compilation
 
     @@@clojure
     (ns my.setting)
 
     (goog-define USER "normal")
 
-    (if (identical? USER "admin")
-      (.log js/console "Admin View"))
+    (def permisssions
+      (if (identical? USER "admin")
+        {:access :all}
+        {:access :user}
 
     (def oversees
       (cond
         (identical? USER "admin") #{"supervisors", "users"}
         (identical? USER "supervisor") #{"users"}
         #{}))
-
-## `identical?` needed for Dead Code elimination
-
-!SLIDE
-
-## `clojure-defines` alone won't work
-## Namespace and `goog-define` are needed
-### Gives Google Closure the necessary JavaScript
