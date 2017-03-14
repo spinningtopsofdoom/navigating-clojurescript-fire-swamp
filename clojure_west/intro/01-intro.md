@@ -30,7 +30,7 @@ Advanced Dead Code elimination and code splitting right out of the box
 
 !SLIDE
 
-Now that we're full of hubris a Nemesis will come along to humble us
+![Nemesis](../../images/nemesis_gheorghe_tattarescu.jpg)
 
 !SLIDE
 
