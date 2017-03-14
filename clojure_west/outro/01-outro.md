@@ -10,6 +10,7 @@ David Nolen
 
 # Thanks
 - Antonin Hildebrand for `cljs-oops` and helping me go over it
+- António Monteiro for presentation mentoring and node modules reference
 
 !SLIDE
 
