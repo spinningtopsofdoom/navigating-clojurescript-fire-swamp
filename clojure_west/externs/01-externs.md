@@ -243,7 +243,7 @@ Use `goog.object/get` or `aget` instead of calling methods / properties directly
 
     @@@javascript
     // Generated JavaScript
-    gobj.get(outside, "getClouds").call(outside);
+    goog.object.get(outside, "getClouds").call(outside);
     // Simple or Advanced Compilation
     (null !== a && "getClouds" in a ? a.getClouds : void 0).call(a);
 
