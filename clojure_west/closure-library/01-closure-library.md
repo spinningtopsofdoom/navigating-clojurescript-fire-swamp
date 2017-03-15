@@ -23,14 +23,14 @@ Google Closure Library comes packaged with ClojureScript
 ## Great buried gems
 
 - AJAX
-    - classic `XhrIo`
-    - New fetch API `FetchXmlHttp`
-- Async functionality
-    - `debounce`, `throttle`, `delay`
-- Date and Time
-    - `DateTime`, `UTCDateTime`, `Interval`
+    - classic `goog.net.XhrIo`
+    - New fetch API `goog.net.FetchXmlHttp`
+- `goog.async` Namespace
+    - `Debouncer`, `Throttle`, `Delay`
+- `goog.date` Namespace
+    - `DateTime`, `Interval`, `Date`, `DateRange`
 - JavaScript Collections
-    - `array`, `iter`
+    - `goog.array`, `goog.iter`
 
 !SLIDE
 
