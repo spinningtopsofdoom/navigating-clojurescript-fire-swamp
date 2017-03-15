@@ -34,23 +34,29 @@ Google Closure Library comes packaged with ClojureScript
 
 !SLIDE
 
-# `goog.object`
+# `goog.object` Namespace
 - Safe robust interaction with JavaScript Objects
 - Use  `goog.object.get` and `goog.object.set` instead of `aget` and `aset`
 
 !SLIDE
 
-## Parameterize builds with `goog-define`
+## Parameterize builds through `goog.define`
+
+- Different settings Development vs. Production
+- Feature flags
+- Unused features compiled away
+
+
+!SLIDE
+
+## Call with `goog-define` macro
 
     @@@clojure
     (ns my.setting)
 
     (goog-define LOG false)
 
-!SLIDE
-
-# Override `goog-define` wtih `closure-defines`
-## Complier Setting
+## Override wtih `closure-defines` Complier Setting
 
     @@@clojure
     :clojure-defines {'my.setting.LOG true}
@@ -65,7 +71,7 @@ Google Closure Library comes packaged with ClojureScript
     (goog-define TIMEOUT 300)
 
     (defn load-settings []
-      (ajax-call {:imeout TIMEOUT}))
+      (ajax-call {:timeout TIMEOUT}))
 
 &nbsp;
 
@@ -75,13 +81,7 @@ Google Closure Library comes packaged with ClojureScript
 
 !SLIDE
 
-# Feature Flags
-## Advanced Compilation removes unused features
-
-!SLIDE
-
-# Boolean Flag
-## `^boolean` type hint for advanced compilation
+# Boolean Feature Flag
 
     @@@clojure
     (ns my.setting)
@@ -89,25 +89,27 @@ Google Closure Library comes packaged with ClojureScript
     (goog-define ADMIN false)
 
     (def permisssions
+      ;; ^boolean for dead code elimination
       (if ^boolean ADMIN
         {:access :all}
         {:access :user}
 
 !SLIDE
 
-# Enum Flag
-## `identical?` for advanced compilation
+# Enum (String) Feature Flag
 
     @@@clojure
     (ns my.setting)
 
     (goog-define USER "normal")
 
+    ;; identical? for dead code elimination
     (def permisssions
       (if (identical? USER "admin")
         {:access :all}
         {:access :user}
 
+    ;; cond and identical? for dead code elimination
     (def oversees
       (cond
         (identical? USER "admin") #{"supervisors", "users"}
