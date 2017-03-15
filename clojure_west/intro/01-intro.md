@@ -6,13 +6,12 @@
 
 !SLIDE
 
-# Everything is as of ClojureScript `1.9.494`
+# As of ClojureScript `1.9.494`
+## Feel free to ask questions
 
 !SLIDE
 
-From a JavaScript developers perspective ClojureScipt's tool chain seems impossible
-
-!SLIDE
+## ClojureScript tooling seems Inconceivable
 
 Sub second incremental transpilation with hot reloading
 
