@@ -14,9 +14,7 @@ From a JavaScript developers perspective ClojureScipt's tool chain seems impossi
 
 !SLIDE
 
-ClojureScript development and production ahead of typical JavaScript tool chain
-
-Sub second transpilation with hot reloading
+Sub second incremental transpilation with hot reloading
 
 "Inconceivable"
 
@@ -24,7 +22,7 @@ Sub second generation of Fully accurate source maps
 
 "Inconceivable"
 
-Advanced Dead Code elimination and code splitting right out of the box
+Advanced Dead Code elimination and Cross Module Code Motion
 
 "Inconceivable"
 
