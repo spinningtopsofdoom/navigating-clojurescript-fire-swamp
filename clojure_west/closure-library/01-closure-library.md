@@ -3,6 +3,10 @@
 
 !SLIDE
 
+![Storming the Castle](../../images/castle.jpg)
+
+!SLIDE
+
 Google Closure Library comes packaged with ClojureScript
 
 - Batteries Included Like other languages (e.g. Python, Ruby)

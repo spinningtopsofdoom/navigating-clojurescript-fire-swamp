@@ -73,36 +73,19 @@ Google Closure Compiler - `foo`.`bar`
 
 !SLIDE
 
-Worst Case
-Fully manual
-
-JS Library Most Common case
-Can't Use
+![JavaScript Library with no Externs](../../images/extern_js_library.svg)
 
 !SLIDE
 
-Better Case
-Uncanny Valley
-Have to manually wireup externs file
-
-JS Library    Intersection      Externs
-Can't Use     Happiness         Lots of painful debugging
+![JavaScript Library with Externs](../../images/extern_javascript_externs.svg)
 
 !SLIDE
 
-Best Case
-Still have uncanny valley
-
-JS Library    Intersection      Externs                    ClojureScript Wrapper
-Can't Use     Happiness         Lots of painful debugging  CLJSJS
+![ClojureScript Wrapper for JavaScript Library with Externs](../../images/extern_clojurescript_library.svg)
 
 !SLIDE
 
-Notice this only works for one version of the library.
-
-`1.2.0` -> `1.2.4` -> `1.3.0`
-
-New version means redoing everything again.
+![Multiple JavaScript versions](../../images/extern_library_versions.svg)
 
 !SLIDE
 

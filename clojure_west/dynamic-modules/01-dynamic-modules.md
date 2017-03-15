@@ -8,6 +8,14 @@
 
 !SLIDE
 
+# For splittable code
+
+!SLIDE
+
+# Dynamically Load ClojureScript Modules
+## `goog.module.Manager` OOP boiler plate
+
+!SLIDE
 # Managing Modules Client Side
 
     @@@clojure
