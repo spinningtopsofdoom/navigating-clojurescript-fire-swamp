@@ -1,36 +1,38 @@
 # ClojureScript Modules
 
 !SLIDE
-
-## Splitting up application into modules increases performance
-- Only load what is necessary
-- Load modules in parallel
-
-!SLIDE
-
-# For splittable code
-
-!SLIDE
-
-# Dynamically Load ClojureScript Modules
-## `goog.module.Manager` OOP boiler plate
-
-!SLIDE
-# Managing Modules Client Side
+# ClojureScript Modules pretty straight forward
 
     @@@clojure
 
     :modules {:extra {:output-to "resources/modules/extra.js"
                       :entries #{"my.module.core"}}
-              :dev   {:output-to   "resources/modules/dev.js"
+              :dev   {:output-to "resources/modules/dev.js"
                       :entries #{"my.module.root"}
                       :depends-on #{:extra}}}
+
+!SLIDE
+
+# Google Closure takes care of hard work
+## Cross Module Code Motion
+
+
+!SLIDE
+
+# Dynamically Loading ClojureScript Modules
+## Morass of OOP boiler plate
 
 !SLIDE
 
 # Module Management OO Style
 
     @@@clojure
+    ;; Singleton Module Manager
+    (def manager (.getInstance goog.module.ModuleManager))
+
+    (def loader (goog.module.ModuleLoader.))
+    (.setLoader manager loader)
+
     (def modules
      ;; id -> urls
       #js {"extra" "resources/modules/extra.js"})
@@ -38,11 +40,6 @@
     (def module-info
       ;; id-> dependencies
       #js {"extra" #js []})
-
-    (def manager (.getInstance goog.module.ModuleManager))
-    (def loader (goog.module.ModuleLoader.))
-
-    (.setLoader manager loader)
     (.setAllModuleInfo manager module-info)
     (.setModuleUris manager modules)
 
@@ -51,12 +48,21 @@
 # Mark Module as Loaded
 
     @@@clojure
+    (ns my.module.name)
     (.setLoaded (.getInstance goog.module.ModuleManager) "my.module.name")
 
 !SLIDE
 
+# Just OOP setup
+## Now we need a `load-module` function
+
+    @@@clojure
+    (defn load-module [module-id callback])
+
+!SLIDE
+
 # Root Module
-## `code.modules.extra` is eliminated in production
+## `my.modules.extra` is eliminated in production
 
     @@@clojure
     (ns my.module.root
@@ -67,11 +73,16 @@
 !SLIDE
 
 ## Loading Modules in Development
-### Auto loaded check every 100ms
+### Modules already auto loaded check every 100ms
 
     @@@clojure
     (defn load-module-dev [id callback]
       (let [interval (goog.Timer. 100)
+            manager (.getInstance goog.module.ModuleManager)
+            loaded? (fn []
+                      (if-let [module (.getModuleInfo manager id)]
+                        (.isLoaded module)
+                        false))
             tick-fn (fn [_]
                       (when (loaded? id)
                         (.stop interval)
@@ -103,27 +114,9 @@
 
 !SLIDE
 
-## Code Motion only works for
-- Constant literals (e.g. `1`, `"cat"`, `true`)
-- Functions and methods
-- Arrays or Objects of the two above values
+# It would be great ClojureScript library for this
 
 !SLIDE
 
-    @@@clojure
-    (ns my.module.shared)
-
-    (def data #js {})
-
-    (defmulti route #(:type %))
-
-&nbsp;
-
-    @@@clojure
-    (ns my.modules.extra
-      (:require [my.module.shared :as shared]
-                [goog.object as :gobj])
-
-    (gobj/set shared/description "extra" "an extra module")
-
-    (defmethod shared/route :extra [info] {:route "/extra")
+# There is
+## `[bendyworks-modules 0.1.0]`
