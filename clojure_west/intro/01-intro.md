@@ -33,9 +33,7 @@ Advanced Dead Code elimination and Cross Module Code Motion
 
 Then you encounter your first `ro.us`
 
-    @@@javascript
-    ro.us()
-    "ro.us is not a function"
+![Our first ro.us encounter](../../images/first_rous_encounter.png)
 
 and spend hours hunting for a bug in externs
 

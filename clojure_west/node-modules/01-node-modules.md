@@ -1,4 +1,4 @@
-# Building Node Modules
+# Node Modules
 
 !SLIDE
 
