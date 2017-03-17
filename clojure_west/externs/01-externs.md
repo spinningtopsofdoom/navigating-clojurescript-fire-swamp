@@ -1,38 +1,46 @@
-# Third Party JavaScript Libraries
-## Externs
-## JavaScript code not touched by Google Closure Compiler
+# Externs
+## Third Party JavaScript Libraries
+## Not Handled by Google Closure Compiler
 
 !SLIDE
-
-Our Third Party JavaScript library `greeting.js`
 
     @@@javascript
     var foo = {};
     foo.bar = function(greeting) {
       return greeting + " friend";
     }
-!SLIDE
 
-Calling `greeting.js` from ClojureScript
+&nbsp;
 
     @@@clojure
     (.bar js/foo "hello")
+!SLIDE
+
 
 !SLIDE
 
-Everything works fine for development, testing, QA, and production builds
+## Everything works fine in
+
+- Development
+- Testing
+- QA
+- Production Builds
 
 !SLIDE
 
-Production application
+## Production application
+
+![foo.w is not a function](../../images/foo_not_a_function.png)
+
 
     @@@javascript
     foo.w("hello");
-    "foo.w is not a function"
 
-Why did this only happen?
+What happened to `foo.bar`?
 
 !SLIDE
+
+## Google Closure Compiler Renaming
 
 Optimizations `:advanced`
 
@@ -42,19 +50,14 @@ Google Closure Compiler
 
 `foo`.`w`(`"hello"`)
 
-For advanced compilation Google Closure Compiler is very aggressive renaming to minimize code size
-
 !SLIDE
 
-To correct this Google Closure Compiler needs to know what names it's not allowed to mangle
-
-This happens via an "externs" (external) file
-
-Our Externs File
+# A file of external names
+## An "externs" file
 
     @@@javascript
     var foo = {};
-    foo.bar = function() {};
+    foo.bar = function(greeting) {};
 
 !SLIDE
 
