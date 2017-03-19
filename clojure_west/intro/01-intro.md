@@ -39,4 +39,4 @@ and spend hours hunting for a bug in externs
 
 !SLIDE
 
-# Let's start our journey through the fire swamps of Clojure
+# Let's start our journey through the fire swamps of ClojureScript

@@ -225,20 +225,6 @@ Add `frog` to `inferred_externs.js`
     (defn cloudy [outside]
       (.call (gobj/get outside "getClouds") outside))
 
-## Generated JavaScript
-
-    @@@javascript
-    goog.object.get(outside, "getClouds").call(outside);
-
-## Advanced Compilation
-
-    @@@javascript
-    (null !== a && "getClouds" in a ? a.getClouds : void 0).call(a);
-
-!SLIDE
-
-# Use in small doses
-## Defeats Google Closure Advanced Optimization
 
 !SLIDE
 
@@ -330,6 +316,11 @@ Add `frog` to `inferred_externs.js`
         (def home {})
         (assoc-in home [:house :livingroom :color] "green")
         ;; => {:house {:livingroom {:color "green"}}}
+
+!SLIDE
+
+# Use in small doses
+## Defeats Google Closure Advanced Optimization
 
 !SLIDE
 

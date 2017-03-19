@@ -53,8 +53,7 @@
 
 !SLIDE
 
-# Just OOP setup
-## Now we need a `load-module` function
+# OOP setup just for module information
 
     @@@clojure
     (defn load-module [module-id callback])
@@ -64,9 +63,11 @@
 # Root Module
 ## `my.modules.extra` is eliminated in production
 
+    @@@
+    :preloads '[my.module.extra]
+
     @@@clojure
-    (ns my.module.root
-      (:require [my.module.extra]))
+    (ns my.module.root)
 
     (load-module "extra" (fn [] (.log js/console "extra loaded")))
 

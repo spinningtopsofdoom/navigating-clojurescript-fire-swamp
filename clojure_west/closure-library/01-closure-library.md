@@ -81,7 +81,12 @@ Google Closure Library comes packaged with ClojureScript
 
 !SLIDE
 
-# Boolean Feature Flag
+# Feature Flags with Dead Code Elimination
+
+!SLIDE
+
+# Boolean
+##  `^boolean` type hint
 
     @@@clojure
     (ns my.setting)
@@ -89,27 +94,25 @@ Google Closure Library comes packaged with ClojureScript
     (goog-define ADMIN false)
 
     (def permisssions
-      ;; ^boolean for dead code elimination
       (if ^boolean ADMIN
         {:access :all}
         {:access :user}
 
 !SLIDE
 
-# Enum (String) Feature Flag
+# String
+## `if` or `cond` with `identical?`
 
     @@@clojure
     (ns my.setting)
 
     (goog-define USER "normal")
 
-    ;; identical? for dead code elimination
     (def permisssions
       (if (identical? USER "admin")
         {:access :all}
         {:access :user}
 
-    ;; cond and identical? for dead code elimination
     (def oversees
       (cond
         (identical? USER "admin") #{"supervisors", "users"}

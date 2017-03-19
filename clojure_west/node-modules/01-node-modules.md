@@ -4,59 +4,8 @@
 
 Google Closure Compiler can compile node modules
 
-Current production React and React DOM 53k With ClojureScript via Closure it's 32k
-
-!SLIDE
-
-ClojureScript does not manage JavaScript dependency graph
-
-## `rainbow`
-
-- `red@1.4.5`
-- `blue@3.0.0`
-
-## `prism`
-
-- `red@0.13.4`
-- `blue@4.3.1`
-
-## `paint`
-
-- `red@02.0.4`
-- `blue@4.5.0`
-
-!SLIDE
-
-Application development is the big winner
-
-- `npm` or `yarn` can manage JavaScript dependencies
-- Compiler can maximize tree shaking and Dead Code Elimination
-
-!SLIDE
-
-Install `module-deps` library to resolve node module dependencies
-
-- `npm install --save-dev module-deps`
-- `yarn add --dev module-deps`
-
-
-!SLIDE
-
-## Externs for node needed
-
-- JavaScript use node to compile JavaScript
-- Available at https://github.com/dcodeIO/node.js-closure-compiler-externs
-
-!SLIDE
-
-CLJSJS libraries for externs
-
-    @@@clojure
-    [cljsjs/react "15.4.2-2"]
-    [cljsjs/react-dom "15.4.2-2"]
-    [cljsjs/react-dom-server "15.4.2-2"]
-
-Tells Closure about dynamic (meta programmed) names
+- Facebook React and React DOM 53k
+- Google Closure React and React DOM 32k
 
 !SLIDE
 
@@ -81,17 +30,69 @@ Tells Closure about dynamic (meta programmed) names
 
 !SLIDE
 
-# Note we're now using namespaces not global objects
+# React and ReactDom are namespaces
 
 ## Use like this
 
     @@@clojure
     (React/createElement "hi" nil "Hello World")
 
-## Old CLJSJS Style
+## CLJSJS Style
 
     @@@clojure
     (.createElement js/React "hi" nil "Hello World")
+
+!SLIDE
+
+ClojureScript does not manage JavaScript dependency graph
+
+## `rainbow`
+
+- `red@1.4.5`
+- `blue@3.0.0`
+
+## `prism`
+
+- `red@0.13.4`
+- `blue@4.3.1`
+
+## `paint`
+
+- `red@02.0.4`
+- `blue@4.5.0`
+
+!SLIDE
+
+
+Application development is the big winner
+
+- `npm` or `yarn` can manage JavaScript dependencies
+- Maximize Dead Code Elimination
+
+!SLIDE
+
+Install `module-deps` library to resolve node module dependencies
+
+- `npm install --save-dev module-deps`
+- `yarn add --dev module-deps`
+
+!SLIDE
+
+## Externs for node needed
+
+- JavaScript use node to compile JavaScript
+- Available at https://github.com/dcodeIO/node.js-closure-compiler-externs
+
+!SLIDE
+
+CLJSJS libraries for externs
+
+    @@@clojure
+    [cljsjs/react "15.4.2-2"]
+    [cljsjs/react-dom "15.4.2-2"]
+    [cljsjs/react-dom-server "15.4.2-2"]
+
+Tells Closure about dynamic (meta programmed) names
 
 !SLIDE
 
