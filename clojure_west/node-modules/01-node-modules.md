@@ -51,20 +51,9 @@
 
 # ClojureScript does not manage JavaScript dependency graph
 
-## `rainbow`
+!SLIDE
 
-- `red@1.4.5`
-- `blue@3.0.0`
-
-## `prism`
-
-- `red@0.13.4`
-- `blue@4.3.1`
-
-## `paint`
-
-- `red@02.0.4`
-- `blue@4.5.0`
+![ClojureScript libraries with node module dependencies](../../images/clojurescript_no_javascript_dependencies.svg)
 
 !SLIDE
 

@@ -52,7 +52,6 @@
 
     (.setLoaded (.getInstance goog.module.ModuleManager) "my.module.name")
 
-
 !SLIDE
 
 # Just for Module Manager bookkeeping
