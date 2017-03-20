@@ -6,6 +6,5 @@
       {"section":"clojure_west/externs"},
       {"section":"clojure_west/node-modules"},
       {"section":"clojure_west/dynamic-modules"},
-      {"section":"clojure_west/performance"},
       {"section":"clojure_west/outro"}
   ]}
