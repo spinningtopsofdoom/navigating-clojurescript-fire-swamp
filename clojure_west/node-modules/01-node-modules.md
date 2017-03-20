@@ -1,8 +1,9 @@
 # Compiling Node Modules
+## Miracle Pill
 
 !SLIDE
 
-Google Closure Compiler can compile node modules
+## Google Closure Compiler can compile node modules
 
 - Facebook React and React DOM 53k
 - Google Closure React and React DOM 32k
@@ -44,6 +45,10 @@ Google Closure Compiler can compile node modules
 
 !SLIDE
 
+# Now for the caveats, addendums, and hoop jumping
+
+!SLIDE
+
 # ClojureScript does not manage JavaScript dependency graph
 
 ## `rainbow`
@@ -66,11 +71,7 @@ Google Closure Compiler can compile node modules
 ## Application development is the big winner
 
 - `npm` or `yarn` can manage JavaScript dependencies
-- Maximize Dead Code Elimination
-
-!SLIDE
-
-# Now for caveats, addendum's, and jumping though hoops
+- Maximizes Dead Code Elimination
 
 !SLIDE
 
@@ -83,7 +84,7 @@ Google Closure Compiler can compile node modules
 
 ## Externs for node needed
 
-- JavaScript use node to compile JavaScript
+- JavaScript uses node to compile JavaScript
 - Available at https://github.com/dcodeIO/node.js-closure-compiler-externs
 
 !SLIDE
@@ -98,16 +99,7 @@ Google Closure Compiler can compile node modules
 
 !SLIDE
 
-# Ho to make the miracle pill from scratch
-
-!SLIDE
-
-## How to make the miracle pill from scratch
-- Install Dependencies through npm (install the universe)
-- Create a JavaScript file detailing dependencies and exports (create a recipe)
-- Run the file through `node-inputs` (fetch all the ingredient)
-- Pass the results to ClojureScript through `foreign-libs` (create miracle pill)
-
+# How to make the miracle pill from scratch
 
 !SLIDE
 
@@ -131,7 +123,7 @@ Google Closure Compiler can compile node modules
 
 !SLIDE
 
-Setup dependencies and exports
+# Setup dependencies and exports
 
     @@@@javascript
     var React = require("react");
@@ -157,8 +149,9 @@ Pass in file as a `foreign-lib` to `cljs.closure/node-inpts`
 
     (def rppt-js-deps
       {:file (.getAbsolutePath (io/file "path/to/npm_deps.js"))
-                       :provides ["libs.npm-deps"]
-                       :module-type :commonjs})
+       :provides ["libs.npm-deps"]
+       :module-type :commonjs})
+
     (def node-libs
       (into [entry] (cljs.closure/node-inputs [root-js-deps])))
 
@@ -169,7 +162,7 @@ Pass in file as a `foreign-lib` to `cljs.closure/node-inpts`
 !SLIDE
 
 
-Pass `cljs.closure/node-inpts` result to `foreign-libs`
+## Pass `cljs.closure/node-inpts` result to `foreign-libs`
 
     @@@clojure
     (require 'cljs.build.api)
@@ -187,7 +180,6 @@ Pass `cljs.closure/node-inpts` result to `foreign-libs`
     @@@clojure
     (ns my.app
       (:require [lib.npm-deps :as npm-deps]))
-
 
     (def app (npm-deps/React.createElement "h1" nil "Hello World!"))
     (npm-deps/ReactDOM.render app (.getElementById js/document "app"))

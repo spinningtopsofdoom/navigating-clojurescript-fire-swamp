@@ -4,19 +4,18 @@
 
 !SLIDE
 
+## JavaScript Library
+
     @@@javascript
     var foo = {};
     foo.bar = function(greeting) {
       return greeting + " friend";
     }
 
-&nbsp;
+## Calling library in ClojureScript
 
     @@@clojure
     (.bar js/foo "hello")
-!SLIDE
-
-
 !SLIDE
 
 ## Everything works fine in
@@ -28,10 +27,12 @@
 
 !SLIDE
 
-## Production application
+## Error in production application
 
 ![foo.w is not a function](../../images/foo_not_a_function.png)
 
+
+## Complied JavaScript
 
     @@@javascript
     foo.w("hello");
@@ -52,7 +53,7 @@ Google Closure Compiler
 
 !SLIDE
 
-# A file of external names
+# Inform Google Closure about external names
 ## An "externs" file
 
     @@@javascript
@@ -71,8 +72,7 @@ Google Closure Compiler - `foo`.`bar`
 
 !SLIDE
 
-# So all you need to do is go through all your JavaScript libraries and write down all the names they export
-# :(
+# So all we need to do is go through all your JavaScript libraries and write down all the names they export
 
 !SLIDE
 
@@ -92,13 +92,15 @@ Google Closure Compiler - `foo`.`bar`
 
 !SLIDE
 
-What do we do when there is no externs available or the default externs don't cover the library?
+# Caught in the Pit of Despair
+## Only most popular libraries are readily usable
 
-Two ways to escape the pit of despair
+!SLIDE
 
-- Externs inference
+# We can escape the Pit Of Despair
+
+- ClojureScript Externs inference
 - `cljs-oops` library
-
 !SLIDE
 
 # Externs Inference
@@ -109,13 +111,13 @@ Two ways to escape the pit of despair
 ## Compiler Option
 ## `:infer-externs true`
 Turns on Externs Inference and writes an externs file `inferred_externs.js`
-## Infer Waring FLag
+## Infer Waring Flag
 ## `(set! *warn-on-infer* true)`
 Turns on inference warnings
 
 !SLIDE
 
-Three types of inference warnings
+# Three types of inference warnings
 
 - Use of an unknown JavaScript type
 - Using Base JavaScript Object
@@ -186,7 +188,7 @@ Add return type to `getClouds` and add `Clouds` externs to `inferred_externs.js`
 
 "Cannot resolve property ..."
 
-`Clouds.prototype.frog` does not exist in extens
+`Clouds.prototype.frog` does not exist in externs
 
 !SLIDE
 
@@ -324,4 +326,9 @@ Add `frog` to `inferred_externs.js`
 
 !SLIDE
 
-## CLJSJS libraries and  externs file remain the best options if available
+# CLJSJS library is the best option
+## Externs file next best options
+## When neither exist use
+
+- ClojureScript externs inference
+- `cljs-oops`

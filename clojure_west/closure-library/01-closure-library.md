@@ -1,4 +1,5 @@
-# Before storming the castle we need to list our assets
+# Google Closure Library
+## JavaScript Standard Library
 
 !SLIDE
 
@@ -8,7 +9,7 @@
 
 # Google Closure Library
 
-- JavaScript Standard Library (Batteries included)
+- Equivalent to Ruby or Python Standard Libraries
 - Packaged with ClojureScript
 - Written for Google Closure Compiler
 
@@ -32,35 +33,18 @@
 !SLIDE
 
 # `goog.object` Namespace
-- Safe robust interaction with JavaScript Objects
-- Use  `goog.object.get` and `goog.object.set` instead of `aget` and `aset`
+- Safe and robust interaction with JavaScript Objects
+- Use  `goog.object/get` and `goog.object/set` instead of `aget` and `aset`
 
 !SLIDE
 
-## Parameterize builds through `goog.define`
-
-- Different settings Development vs. Production
-- Feature flags
-- Unused features compiled away
-
+# `goog.define`
+## Very well hidden
+## Parameterize builds
 
 !SLIDE
 
 ## Call with `goog-define` macro
-
-    @@@clojure
-    (ns my.setting)
-
-    (goog-define LOG false)
-
-## Override wtih `closure-defines` Complier Setting
-
-    @@@clojure
-    :clojure-defines {'my.setting.LOG true}
-
-!SLIDE
-
-# Development vs Production settings
 
     @@@clojure
     (ns my.api)
@@ -70,7 +54,7 @@
     (defn load-settings []
       (ajax-call {:timeout TIMEOUT}))
 
-&nbsp;
+## Override with `closure-defines` Complier Setting
 
     @@@clojure
     :clojure-defines {'my.api.TIMEOUT 5000}
@@ -78,12 +62,13 @@
 
 !SLIDE
 
-# Feature Flags with Dead Code Elimination
+# Feature Flags
+## Unused features removed via Dead Code Elimination
 
 !SLIDE
 
-# Boolean
-##  `^boolean` type hint
+# Boolean Values
+## `^boolean` type hint
 
     @@@clojure
     (ns my.setting)
@@ -97,8 +82,9 @@
 
 !SLIDE
 
-# String
-## `if` or `cond` with `identical?`
+# String Values
+## `if` or `cond` conditional expressions
+## `identical?` for comparison
 
     @@@clojure
     (ns my.setting)

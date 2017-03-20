@@ -1,4 +1,4 @@
-# ClojureScript Modules
+# Dynamically Loading ClojureScript Modules
 
 !SLIDE
 # ClojureScript Modules pretty straight forward
@@ -49,8 +49,14 @@
 
     @@@clojure
     (ns my.module.name)
+
     (.setLoaded (.getInstance goog.module.ModuleManager) "my.module.name")
 
+
+!SLIDE
+
+# Just for OOP bookkeepping
+## Modules still need to get dynamically loaded
 
 !SLIDE
 
@@ -64,6 +70,7 @@
 !SLIDE
 
 # For development
+## `:modules` does not work for `:none` optimizations
 
     @@@clojure
     :preloads '[my.module.extra]
