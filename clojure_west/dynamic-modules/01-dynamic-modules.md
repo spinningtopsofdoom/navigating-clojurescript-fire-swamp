@@ -55,7 +55,7 @@
 
 !SLIDE
 
-# Just for OOP bookkeepping
+# Just for Module Manager bookkeeping
 ## Modules still need to get dynamically loaded
 
 !SLIDE
