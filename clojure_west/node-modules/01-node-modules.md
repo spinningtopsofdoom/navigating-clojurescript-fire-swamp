@@ -1,4 +1,4 @@
-# Node Modules
+# Compiling Node Modules
 
 !SLIDE
 
@@ -9,14 +9,15 @@ Google Closure Compiler can compile node modules
 
 !SLIDE
 
-# Now for the miracle pill
-## New compiler option `npm-deps`
+# New compiler option `npm-deps`
 
     @@@clojure
     {:npm-deps {:react     "15.4.2"
                 :react-dom "15.4.2"}}
 
 !SLIDE
+
+# `react` and `react-dom` are accessible directly in ClojureScript
 
     @@@clojure
     (ns my.app
@@ -26,7 +27,6 @@ Google Closure Compiler can compile node modules
     (def app (React/createElement "h1" nil "Hello World!"))
     (ReactDOM/render app (.getElementById js/document "app"))
 
-`react` and `react-dom` are accesible directly in ClojureScript
 
 !SLIDE
 
@@ -44,7 +44,7 @@ Google Closure Compiler can compile node modules
 
 !SLIDE
 
-ClojureScript does not manage JavaScript dependency graph
+# ClojureScript does not manage JavaScript dependency graph
 
 ## `rainbow`
 
@@ -63,15 +63,18 @@ ClojureScript does not manage JavaScript dependency graph
 
 !SLIDE
 
-
-Application development is the big winner
+## Application development is the big winner
 
 - `npm` or `yarn` can manage JavaScript dependencies
 - Maximize Dead Code Elimination
 
 !SLIDE
 
-Install `module-deps` library to resolve node module dependencies
+# Now for caveats, addendum's, and jumping though hoops
+
+!SLIDE
+
+# `module-deps` library needed
 
 - `npm install --save-dev module-deps`
 - `yarn add --dev module-deps`
@@ -85,14 +88,17 @@ Install `module-deps` library to resolve node module dependencies
 
 !SLIDE
 
-CLJSJS libraries for externs
+# CLJSJS libraries for externs
+## Tells Closure about dynamic (meta programmed) names
 
     @@@clojure
     [cljsjs/react "15.4.2-2"]
     [cljsjs/react-dom "15.4.2-2"]
-    [cljsjs/react-dom-server "15.4.2-2"]
 
-Tells Closure about dynamic (meta programmed) names
+
+!SLIDE
+
+# Ho to make the miracle pill from scratch
 
 !SLIDE
 
@@ -102,12 +108,26 @@ Tells Closure about dynamic (meta programmed) names
 - Run the file through `node-inputs` (fetch all the ingredient)
 - Pass the results to ClojureScript through `foreign-libs` (create miracle pill)
 
+
 !SLIDE
 
-Install `react` and `react-dom`
+## To create a miracle pill from scratch first you must create the universe.
 
+!SLIDE
+
+# Install `react` and `react-dom`
+
+## NPM
 - `npm install --save react@15.4.2`
 - `npm install --save react-dom@15.4.2`
+
+## YARN
+- `yarn add react@15.4.2`
+- `yarn add  react-dom@15.4.2`
+
+!SLIDE
+
+# Create the recipe for the miracle pill
 
 !SLIDE
 
@@ -115,12 +135,16 @@ Setup dependencies and exports
 
     @@@@javascript
     var React = require("react");
-    var ReactDOMServer = require("react-dom/server");
+    var ReactDOMServer = require("react-dom");
 
     module.exports = {
       React: React,
-      ReactDOMServer: ReactDOMServer
+      ReactDOM: ReactDOM
     };
+
+!SLIDE
+
+# Collect the ingredients for the miracle pill
 
 !SLIDE
 
@@ -131,11 +155,25 @@ Pass in file as a `foreign-lib` to `cljs.closure/node-inpts`
     (require 'cljs.closure)
     (require 'cljs.build.api)
 
+    (def rppt-js-deps
+      {:file (.getAbsolutePath (io/file "path/to/npm_deps.js"))
+                       :provides ["libs.npm-deps"]
+                       :module-type :commonjs})
     (def node-libs
-      (let [entry {:file (.getAbsolutePath (io/file "path/to/npm_deps.js"))
-                   :provides ["libs.npm-deps"]
-                   :module-type :commonjs}]
-        (into [entry] (cljs.closure/node-inputs [entry]))))
+      (into [entry] (cljs.closure/node-inputs [root-js-deps])))
+
+!SLIDE
+
+# Finally ready to make the miracle pill
+
+!SLIDE
+
+
+Pass `cljs.closure/node-inpts` result to `foreign-libs`
+
+    @@@clojure
+    (require 'cljs.build.api)
+
     (cljs.build.api/build "src"
       {:optimizations :advanced
        :output-to "out/app.js"
@@ -143,16 +181,16 @@ Pass in file as a `foreign-lib` to `cljs.closure/node-inpts`
 
 !SLIDE
 
-# We now have `libs.npm-deps` namespace
-## `React` and `ReactDomServer` are in `lib-npm-deps`
+# Same result as `:npm-deps`
+## `React` and `ReactDom` are in `lib-npm-deps`
 
     @@@clojure
     (ns my.app
       (:require [lib.npm-deps :as npm-deps]))
 
-    (def app (npm-deps/React.createElement "h1" nil "Hello World!"))
-    (npm-deps/ReactDOMServer.renderToString app)
 
+    (def app (npm-deps/React.createElement "h1" nil "Hello World!"))
+    (npm-deps/ReactDOM.render app (.getElementById js/document "app"))
 
 !SLIDE
 

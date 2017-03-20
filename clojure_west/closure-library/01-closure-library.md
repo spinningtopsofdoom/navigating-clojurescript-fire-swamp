@@ -1,5 +1,4 @@
-# Google Closure Library
-## JavaScript Standard Library
+# Before storming the castle we need to list our assets
 
 !SLIDE
 
@@ -7,16 +6,16 @@
 
 !SLIDE
 
-Google Closure Library comes packaged with ClojureScript
+# Google Closure Library
 
-- Batteries Included Like other languages (e.g. Python, Ruby)
-- Easily added to project
+- JavaScript Standard Library (Batteries included)
+- Packaged with ClojureScript
 - Written for Google Closure Compiler
 
 !SLIDE
 
-## It's a great standard library
-### Except for the documentation
+# It's a great standard library
+## Except for the documentation
 
 !SLIDE
 
@@ -29,8 +28,6 @@ Google Closure Library comes packaged with ClojureScript
     - `Debouncer`, `Throttle`, `Delay`
 - `goog.date` Namespace
     - `DateTime`, `Interval`, `Date`, `DateRange`
-- JavaScript Collections
-    - `goog.array`, `goog.iter`
 
 !SLIDE
 

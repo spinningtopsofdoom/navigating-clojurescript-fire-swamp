@@ -102,7 +102,7 @@ Two ways to escape the pit of despair
 !SLIDE
 
 # Externs Inference
-## ClojureScript can generate externs for us as of `1.9.546`
+## ClojureScript can generate externs for us as of `1.9.456`
 
 !SLIDE
 
@@ -117,12 +117,9 @@ Turns on inference warnings
 
 Three types of inference warnings
 
-- Use of an unknown JavaScript Object
-    - "Cannot infer target type for ..."
-- Use of a generic JavaScript Object
-    - "Adding extern to Object for ..."
-- Calling an Unknown method or property
-    - "Cannot resolve property ..."
+- Use of an unknown JavaScript type
+- Using Base JavaScript Object
+- Calling an Unknown method or property  on a known extern
 
 !SLIDE
 
@@ -131,10 +128,6 @@ Three types of inference warnings
       (.getClouds outside))
 
 "Cannot infer target type for ..."
-
-ClojureScript doesn't know what type `outside` is, we need to tell ClojureScript that outside is a `Weather` object
-
-!SLIDE
 
 `? outside type` -> `outside`
 
@@ -156,11 +149,6 @@ Type Hint `outside` with `js/Weather`
         (.getType clouds)))
 
 "Adding extern to Object for ..."
-
-ClojureScript assumes that the result of `(.getClouds outside)` is a generic JavaScript object.
-ClojureScript is warning that it's writing `Object.getType;` into `inferred_externs.js`
-
-!SLIDE
 
 `outside.getClouds()` -> `Object`
 
@@ -198,7 +186,7 @@ Add return type to `getClouds` and add `Clouds` externs to `inferred_externs.js`
 
 "Cannot resolve property ..."
 
-ClojureScript doesn't know the method / property you're trying to use. The `frog` method is not in the externs file
+`Clouds.prototype.frog` does not exist in extens
 
 !SLIDE
 
@@ -233,6 +221,7 @@ Add `frog` to `inferred_externs.js`
 !SLIDE
 
 # `oget`
+## Retrieve JavaScript Object properties
 
     @@@clojure
     (def home #js {"floor" #js {"living-room" "500 sqft"}})
@@ -242,6 +231,7 @@ Add `frog` to `inferred_externs.js`
 !SLIDE
 
 # `oset!`
+## Set JavaScript Object properties
 
     @@@clojure
     (def home #js {"floor" #js {"living-room" "500 sqft"}})
@@ -251,6 +241,7 @@ Add `frog` to `inferred_externs.js`
 !SLIDE
 
 # `ocall`
+## Call JavaScript methos with fixed arguments
 
     @@@clojure
     (def car #js {"ispy" (fn [desc item] (str "I see a " desc " " item))})
@@ -260,6 +251,7 @@ Add `frog` to `inferred_externs.js`
 !SLIDE
 
 # `oapply`
+## Call JavaScript methos with variadic arguments
 
     @@@clojure
     (def bill #js {"total" (fn [& items] (reduce + items))})
@@ -320,13 +312,16 @@ Add `frog` to `inferred_externs.js`
 !SLIDE
 
 # Use in small doses
-## Defeats Google Closure Advanced Optimization
+## String Names defeats Google Closure Advanced Optimization
 
 !SLIDE
 
-## Externs Inference and `cljs-oops` opens up JavaScript ecosystem
-### Most JavaScript libraries don't have externs
+## Opns up the JavaScript ecosystem
+### Selectively use library features with
+
+- ClojureScript externs inference
+- `cljs-oops`
 
 !SLIDE
 
-## CLJSJS libraries and  externs file always the best options
+## CLJSJS libraries and  externs file remain the best options if available

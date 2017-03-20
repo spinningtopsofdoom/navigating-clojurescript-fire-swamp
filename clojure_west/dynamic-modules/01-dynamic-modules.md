@@ -51,25 +51,23 @@
     (ns my.module.name)
     (.setLoaded (.getInstance goog.module.ModuleManager) "my.module.name")
 
-!SLIDE
-
-# OOP setup just for module information
-
-    @@@clojure
-    (defn load-module [module-id callback])
 
 !SLIDE
 
-# Root Module
-## `my.modules.extra` is eliminated in production
-
-    @@@
-    :preloads '[my.module.extra]
+# Desired Root Module
 
     @@@clojure
     (ns my.module.root)
 
     (load-module "extra" (fn [] (.log js/console "extra loaded")))
+
+!SLIDE
+
+# For development
+
+    @@@clojure
+    :preloads '[my.module.extra]
+
 
 !SLIDE
 
@@ -120,4 +118,4 @@
 !SLIDE
 
 # There is
-## `[bendyworks-modules 0.1.0]`
+## `[conwip-modules 0.1.0]`
