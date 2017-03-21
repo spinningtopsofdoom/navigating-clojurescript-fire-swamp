@@ -243,7 +243,7 @@ Add `frog` to `inferred_externs.js`
 !SLIDE
 
 # `ocall`
-## Call JavaScript methos with fixed arguments
+## Call JavaScript methods with fixed arguments
 
     @@@clojure
     (def car #js {"ispy" (fn [desc item] (str "I see a " desc " " item))})
@@ -318,7 +318,7 @@ Add `frog` to `inferred_externs.js`
 
 !SLIDE
 
-## Opns up the JavaScript ecosystem
+## Opens up the JavaScript ecosystem
 ### Selectively use library features with
 
 - ClojureScript externs inference

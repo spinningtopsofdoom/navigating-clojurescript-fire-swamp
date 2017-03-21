@@ -45,7 +45,7 @@
 
 !SLIDE
 
-# Now for the caveats, addendums, and hoop jumping
+# Now for the caveats, addendum's, and hoop jumping
 
 !SLIDE
 

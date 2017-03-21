@@ -17,6 +17,7 @@
 
 # It's a great standard library
 ## Except for the documentation
+## Source Code is very readable
 
 !SLIDE
 
