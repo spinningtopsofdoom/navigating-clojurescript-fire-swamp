@@ -59,7 +59,7 @@
 
 !SLIDE
 
-# Desired Root Module
+# Desired End Result
 
     @@@clojure
     (ns my.module.root)
@@ -68,17 +68,21 @@
 
 !SLIDE
 
-# For development
-## `:modules` does not work for `:none` optimizations
+# Development (`:optimizations :none`)
+## `:modules` is not available
+## All namespaces are auto loaded
+
+!SLIDE
+
+# Put all module namespaces in `:preloads`
 
     @@@clojure
     :preloads '[my.module.extra]
 
-
 !SLIDE
 
 ## Loading Modules in Development
-### Modules already auto loaded check every 100ms
+### Check every 100ms if module has been auto loaded
 
     @@@clojure
     (defn load-module-dev [id callback]
@@ -107,13 +111,13 @@
 
 !SLIDE
 
-## Choose with `goog-define`
+## Choose module loader with `goog-define`
 
     @@@clojure
     (goog-define PRODUCTION false)
 
     (def load-module
-      (if ^boolean PRODUCTION
+      (if ^:boolean PRODUCTION
         load-module-prod
         load-module-dev))
 
