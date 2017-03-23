@@ -1,5 +1,5 @@
 { "name": "Navigating ClojureScript's Fire Swamps",
-  "highlight": "solarized_dark",
+  "highlight": "github",
   "sections": [
       {"section":"clojure_west/intro"},
       {"section":"clojure_west/closure-library"},
