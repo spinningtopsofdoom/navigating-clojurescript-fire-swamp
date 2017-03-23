@@ -89,6 +89,7 @@
 !SLIDE
 
 # How to make the miracle pill from scratch
+## Useful for debugging purposes
 
 !SLIDE
 
@@ -180,13 +181,13 @@ Pass in file as a `foreign-lib` to `cljs.closure/node-inpts`
 
 !SLIDE
 
-# Major players integrating Google Closure
+# Major players are integrating Google Closure
 
-## React Fiber
+## React - Fiber Build
 https://github.com/facebook/react/issues/7925
 
-## Angular Offline Template Compilation
+## Angular - Offline Template Compilation
 https://github.com/angular/angular/issues/8550
 
-## Typescript Compiler to Google Closure
+## Tsickle - Typescript Compiler to Google Closure
 https://github.com/angular/tsickle
