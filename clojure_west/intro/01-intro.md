@@ -13,17 +13,11 @@
 
 ## ClojureScript tooling seems Inconceivable
 
-Sub second incremental transpilation with hot reloading
+### Sub second incremental transpilation with hot reloading
 
-"Inconceivable"
+### Sub second generation of Fully accurate source maps
 
-Sub second generation of Fully accurate source maps
-
-"Inconceivable"
-
-Advanced Dead Code elimination and Cross Module Code Motion
-
-"Inconceivable"
+### Advanced Dead Code elimination and Cross Module Code Motion
 
 !SLIDE
 
