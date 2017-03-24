@@ -212,9 +212,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.0455604"
-     inkscape:cx="667.34037"
-     inkscape:cy="309.60683"
+     inkscape:zoom="3.516741"
+     inkscape:cx="660.13726"
+     inkscape:cy="145.0604"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -627,14 +627,14 @@
          x="804.22412"
          style="font-style:normal;font-weight:normal;font-size:14.45603371px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"><tspan
+           id="tspan3394-5"
            y="828.39282"
            x="804.22412"
-           id="tspan3392-84"
            sodipodi:role="line">ClojureScript</tspan><tspan
-           id="tspan3394-5"
-           y="878.39282"
+           y="846.46289"
            x="804.22412"
-           sodipodi:role="line">Wrapper</tspan></text>
+           sodipodi:role="line"
+           id="tspan4317">Wrapper</tspan></text>
       <text
          transform="scale(1.0111011,0.98902075)"
          sodipodi:linespacing="125%"
@@ -644,15 +644,15 @@
          style="font-style:normal;font-weight:normal;font-size:14.45603371px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"><tspan
            style="font-size:10.8420248px"
+           id="tspan3400-6"
            y="923.47827"
            x="527.84015"
-           id="tspan3398-3"
            sodipodi:role="line">Manual</tspan><tspan
            style="font-size:10.8420248px"
-           id="tspan3400-6"
-           y="960.97827"
+           y="937.03082"
            x="527.84015"
-           sodipodi:role="line">Work</tspan></text>
+           sodipodi:role="line"
+           id="tspan4318">Work</tspan></text>
       <text
          transform="scale(1.0111011,0.98902075)"
          sodipodi:linespacing="125%"
@@ -662,15 +662,15 @@
          style="font-style:normal;font-weight:normal;font-size:14.45603371px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"><tspan
            style="font-size:10.8420248px"
+           id="tspan3406-6"
            y="922.26062"
            x="591.63202"
-           id="tspan3404-0"
            sodipodi:role="line">Happy</tspan><tspan
            style="font-size:10.8420248px"
-           id="tspan3406-6"
-           y="959.76062"
+           y="935.81317"
            x="591.63202"
-           sodipodi:role="line">Developer</tspan></text>
+           sodipodi:role="line"
+           id="tspan4322">Developer</tspan></text>
       <text
          transform="scale(1.0111011,0.98902075)"
          sodipodi:linespacing="125%"
@@ -680,15 +680,15 @@
          style="font-style:normal;font-weight:normal;font-size:14.45603371px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"><tspan
            style="font-size:10.8420248px"
+           id="tspan3412-0"
            y="922.26062"
            x="665.93372"
-           id="tspan3410-2"
            sodipodi:role="line">Uncanny</tspan><tspan
            style="font-size:10.8420248px"
-           id="tspan3412-0"
-           y="959.76062"
+           y="935.81317"
            x="665.93372"
-           sodipodi:role="line">Valley</tspan></text>
+           sodipodi:role="line"
+           id="tspan4326">Valley</tspan></text>
       <text
          transform="scale(1.0111011,0.98902075)"
          sodipodi:linespacing="125%"
