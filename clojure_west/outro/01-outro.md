@@ -18,10 +18,10 @@
 
 !SLIDE
 
-# Ideas I didn't have time for
+# Additional Topics
 
 ## Profiling ClojureScript
-## JavaScript JIT Profiling
+## JavaScript Just In Time (JIT) Profiling
 
 !SLIDE
 

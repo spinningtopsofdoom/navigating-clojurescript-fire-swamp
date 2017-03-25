@@ -117,7 +117,7 @@
     (goog-define PRODUCTION false)
 
     (def load-module
-      (if ^:boolean PRODUCTION
+      (if ^boolean PRODUCTION
         load-module-prod
         load-module-dev))
 
@@ -128,4 +128,5 @@
 !SLIDE
 
 # There is
-## `[conwip-modules 0.1.0]`
+## https://github.com/bendyworks/conwip-modules
+## `[conwip.modules 0.1.0]`

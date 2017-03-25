@@ -76,7 +76,7 @@
 
     (goog-define ADMIN false)
 
-    (def permisssions
+    (def permissions
       (if ^boolean ADMIN
         {:access :all}
         {:access :user}
@@ -92,7 +92,7 @@
 
     (goog-define USER "normal")
 
-    (def permisssions
+    (def permissions
       (if (identical? USER "admin")
         {:access :all}
         {:access :user}
