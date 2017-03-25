@@ -72,7 +72,7 @@ Google Closure Compiler - `foo`.`bar`
 
 !SLIDE
 
-# So all we need to do is go through all your JavaScript libraries and write down all the names they export
+# All that is needed is to write down all the exported names of the projects JavaScript libraries
 
 !SLIDE
 

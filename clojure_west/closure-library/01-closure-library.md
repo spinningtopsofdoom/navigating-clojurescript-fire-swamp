@@ -79,7 +79,7 @@
     (def permissions
       (if ^boolean ADMIN
         {:access :all}
-        {:access :user}
+        {:access :user}))
 
 !SLIDE
 
@@ -95,10 +95,10 @@
     (def permissions
       (if (identical? USER "admin")
         {:access :all}
-        {:access :user}
+        {:access :user}))
 
     (def oversees
       (cond
         (identical? USER "admin") #{"supervisors", "users"}
         (identical? USER "supervisor") #{"users"}
-        #{}))
+        :else #{}))
