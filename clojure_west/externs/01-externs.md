@@ -109,11 +109,17 @@ Google Closure Compiler - `foo`.`bar`
 !SLIDE
 
 ## Compiler Option
-## `:infer-externs true`
-Turns on Externs Inference and writes an externs file `inferred_externs.js`
+### Turns on Externs Inference and writes an externs file `inferred_externs.js`
+
+    @@@clojure
+    :infer-externs true
+
 ## Infer Waring Flag
-## `(set! *warn-on-infer* true)`
-Turns on inference warnings
+### Turns on inference warnings
+
+    @@@clojure
+    (set! *warn-on-infer* true)
+
 
 !SLIDE
 
@@ -168,6 +174,8 @@ Wrap `getClouds` function in ClojureScript
       (let [clouds (get-clouds outside)]
         (.getType clouds)))
 
+!SLIDE
+
 Add return type to `getClouds` and add `Clouds` externs to `inferred_externs.js`
 
     @@@javascript
@@ -206,7 +214,8 @@ Add `frog` to `inferred_externs.js`
 
 !SLIDE
 
-## Idea Use `goog.object/get` or `aget`
+## Access string names via `goog.object/get` or `aget`
+## Advanced optimization does not rename String names
 
     @@@clojure
     (ns my.app
@@ -253,7 +262,7 @@ Add `frog` to `inferred_externs.js`
 !SLIDE
 
 # `oapply`
-## Call JavaScript methos with variadic arguments
+## Call JavaScript methods with variadic arguments
 
     @@@clojure
     (def bill #js {"total" (fn [& items] (reduce + items))})

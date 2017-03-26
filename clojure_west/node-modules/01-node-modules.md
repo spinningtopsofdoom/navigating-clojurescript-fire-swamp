@@ -18,7 +18,7 @@
 
 !SLIDE
 
-# `react` and `react-dom` are accessible directly in ClojureScript
+# `react` and `react-dom` are now just libararies
 
     @@@clojure
     (ns my.app
@@ -38,7 +38,7 @@
     @@@clojure
     (React/createElement "hi" nil "Hello World")
 
-## CLJSJS Style
+## Not CLJSJS Style
 
     @@@clojure
     (.createElement js/React "hi" nil "Hello World")
@@ -60,11 +60,11 @@
 ## Application development is the big winner
 
 - `npm` or `yarn` can manage JavaScript dependencies
-- Maximizes Dead Code Elimination
+- Minimal code size with Advanced optimizations
 
 !SLIDE
 
-# `module-deps` library needed
+# `module-deps` JavaScript library needed
 
 - `npm install --save-dev module-deps`
 - `yarn add --dev module-deps`
@@ -88,7 +88,7 @@
 
 !SLIDE
 
-# How to make the miracle pill from scratch
+# Making the miracle pill from scratch
 ## Useful for debugging purposes
 
 !SLIDE
@@ -130,14 +130,13 @@
 
 !SLIDE
 
-Pass in file as a `foreign-lib` to `cljs.closure/node-inpts`
+Pass in file as a `foreign-lib` to `cljs.closure/node-inputs`
 
     @@@clojure
     (require '[clojure.java.io :as io])
     (require 'cljs.closure)
-    (require 'cljs.build.api)
 
-    (def rppt-js-deps
+    (def root-js-deps
       {:file (.getAbsolutePath (io/file "path/to/npm_deps.js"))
        :provides ["libs.npm-deps"]
        :module-type :commonjs})
@@ -152,7 +151,7 @@ Pass in file as a `foreign-lib` to `cljs.closure/node-inpts`
 !SLIDE
 
 
-## Pass `cljs.closure/node-inpts` result to `foreign-libs`
+## Pass `cljs.closure/node-inputs` result to `:foreign-libs`
 
     @@@clojure
     (require 'cljs.build.api)
@@ -165,7 +164,7 @@ Pass in file as a `foreign-lib` to `cljs.closure/node-inpts`
 !SLIDE
 
 # Same result as `:npm-deps`
-## `React` and `ReactDom` are in `lib-npm-deps`
+## `React` and `ReactDom` are in `lib.npm-deps`
 
     @@@clojure
     (ns my.app
@@ -177,7 +176,7 @@ Pass in file as a `foreign-lib` to `cljs.closure/node-inpts`
 !SLIDE
 
 # Still very alpha
-## It's not just ClojureScript that is working at this
+## It's not just ClojureScript working on this
 
 !SLIDE
 
@@ -189,5 +188,5 @@ https://github.com/facebook/react/issues/7925
 ## Angular - Offline Template Compilation
 https://github.com/angular/angular/issues/8550
 
-## Tsickle - Typescript Compiler to Google Closure
+## Typescript -  tsickle
 https://github.com/angular/tsickle

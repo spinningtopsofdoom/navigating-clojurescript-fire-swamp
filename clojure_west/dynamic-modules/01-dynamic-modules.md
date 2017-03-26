@@ -13,7 +13,7 @@
 
 !SLIDE
 
-# Google Closure takes care of hard work
+# Google Closure does the hard work
 ## Cross Module Code Motion
 
 
@@ -68,7 +68,10 @@
 
 !SLIDE
 
-# Development (`:optimizations :none`)
+# Development
+
+    @@@clojure
+    :optimizations :none
 ## `:modules` is not available
 ## All namespaces are auto loaded
 
