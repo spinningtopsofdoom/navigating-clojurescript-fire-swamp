@@ -18,7 +18,7 @@
 
 !SLIDE
 
-# `react` and `react-dom` are now just libararies
+# `react` and `react-dom` are now just libraries
 
     @@@clojure
     (ns my.app

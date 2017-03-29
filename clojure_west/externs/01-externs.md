@@ -28,7 +28,7 @@
 
 ## Error in production application
 
-![foo.w is not a function](../../images/foo_not_a_function.png)
+![.warning_image foo.w is not a function](../../images/foo_not_a_function.png)
 
 
 ## Complied JavaScript
@@ -46,7 +46,11 @@ Optimizations `:advanced`
 
 `foo`.`bar`(`"hello"`)
 
+.down_arrow ⬇
+
 Google Closure Compiler
+
+.down_arrow ⬇
 
 `foo`.`w`(`"hello"`)
 
@@ -78,7 +82,11 @@ Optimizations `:advanced`
 
 `foo`.`bar`(`"hello"`)
 
-Google Closure Compiler - `foo`.`bar`
+.down_arrow ⬇
+
+Google Closure Compiler ⬅ `foo`.`bar`
+
+.down_arrow ⬇
 
 `foo`.`bar`(`"hello"`)
 
@@ -147,15 +155,15 @@ Google Closure Compiler - `foo`.`bar`
     (defn cloudy [outside]
       (.getClouds outside))
 
-"Cannot infer target type for ..."
+### "Cannot infer target type for ..."
 
-`? outside type` -> `outside`
+`Unknown Object Type` ⮕ `outside`
 
-`Weather` -> `outside`
+`Weather` ⮕ `outside`
 
 !SLIDE
 
-Type Hint `outside` with `js/Weather`
+## Type Hint `outside` with `js/Weather`
 
     @@@clojure
     (defn cloudy [^js/Weather outside]
@@ -168,15 +176,15 @@ Type Hint `outside` with `js/Weather`
       (let [clouds (.getClouds outside)]
         (.getType clouds)))
 
-"Adding extern to Object for ..."
+### "Adding extern to Object for ..."
 
-`outside.getClouds()` -> `Object`
+`outside.getClouds()` ⮕ `Object`
 
-`outside.getClouds()` -> `Clouds`
+`outside.getClouds()` ⮕ `Clouds`
 
 !SLIDE
 
-Wrap `getClouds` function in ClojureScript
+## Wrap `getClouds` function in ClojureScript
 
     @@@clojure
     (defn ^js/Clouds get-clouds [^js/Weather outside]
@@ -207,15 +215,15 @@ Wrap `getClouds` function in ClojureScript
       (let [clouds (.getClouds outside)]
         (.frog clouds)))
 
-"Cannot resolve property ..."
+### "Cannot resolve property ..."
 
-`Clouds.prototype.frog` does not exist in externs
+### `Clouds.prototype.frog` does not exist in externs
 
 !SLIDE
 
-Change ` (.frog clouds)` to `(.getType clouds)`
+## Change ` (.frog clouds)` to `(.getType clouds)`
 
-Add `frog` to `inferred_externs.js`
+## Add `frog` to `inferred_externs.js`
 
     @@@javascript
     Clouds.prototype.frog = function() {};
