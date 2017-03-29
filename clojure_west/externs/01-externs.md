@@ -256,8 +256,8 @@ Add `frog` to `inferred_externs.js`
 
     @@@clojure
     (def car #js {"ispy" (fn [desc item] (str "I see a " desc " " item))})
-    (ocall car ["ispy"] "red" "barn")
-    ;; => "I see a red car"
+    (ocall car "ispy" "red" "barn")
+    ;; => "I see a red barn"
 
 !SLIDE
 
@@ -294,7 +294,7 @@ Add `frog` to `inferred_externs.js`
 
         @@@clojure
         (def home #js {"house" #js {"bedroom" #js {:color "red"}}})
-        (oget home "house" "?livingroom")
+        (oget home "house" "?livingroom" "color")
         ;; => nil
 
 &nbsp;
