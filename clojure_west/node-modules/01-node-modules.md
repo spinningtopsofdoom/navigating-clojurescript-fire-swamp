@@ -10,7 +10,7 @@
 
 !SLIDE
 
-# New compiler option `npm-deps`
+# New compiler option `:npm-deps`
 
     @@@clojure
     {:npm-deps {:react     "15.4.2"
@@ -33,12 +33,10 @@
 
 # React and ReactDom are namespaces
 
-## Use like this
-
     @@@clojure
     (React/createElement "hi" nil "Hello World")
 
-## Not CLJSJS Style
+## CLJSJS Style
 
     @@@clojure
     (.createElement js/React "hi" nil "Hello World")
@@ -60,7 +58,7 @@
 ## Application development is the big winner
 
 - `npm` or `yarn` can manage JavaScript dependencies
-- Minimal code size with Advanced optimizations
+- Minimal code size with advanced compilation
 
 !SLIDE
 
@@ -71,9 +69,10 @@
 
 !SLIDE
 
-## Externs for node needed
+## Externs for Node needed
 
-- JavaScript uses node to compile JavaScript
+- JavaScript uses Node to compile JavaScript
+- `react` uses `process.env.NODE_ENV`
 - Available at https://github.com/dcodeIO/node.js-closure-compiler-externs
 
 !SLIDE

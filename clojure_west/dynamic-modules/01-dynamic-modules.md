@@ -82,6 +82,15 @@
     @@@clojure
     :preloads '[my.module.extra]
 
+# Without `:preloads`
+
+
+    @@@clojure
+    (ns my.module.root
+      (:require [my.module.extra]))
+
+    (load-module "extra" (fn [] (.log js/console "extra loaded")))
+
 !SLIDE
 
 ## Loading Modules in Development
@@ -130,6 +139,6 @@
 
 !SLIDE
 
-# There is
+# `conwip.modules`
+## Currently removes about 50% of the boilerplate
 ## https://github.com/bendyworks/conwip-modules
-## `[conwip.modules 0.1.0]`
