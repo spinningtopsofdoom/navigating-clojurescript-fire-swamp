@@ -1,23 +1,37 @@
+<br />
+<br />
+<br />
+<br />
 # Navigating ClojureScript's fire swamps
-
-## @spinningtopsofdoom
-
-## @bendyworks
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+## @spinningtopsofdoom / @bendyworks
 
 !SLIDE
 
 # As of ClojureScript `1.9.494`
-## Feel free to ask questions
 
 !SLIDE
 
-## ClojureScript tooling seems Inconceivable
+# ClojureScript tooling seems Inconceivable
 
-### Sub second incremental transpilation with hot reloading
+<br />
 
-### Sub second generation of Fully accurate source maps
+## Sub second incremental transpilation with hot reloading
 
-### Advanced Dead Code elimination and Cross Module Code Motion
+<br />
+
+## Sub second generation of fully accurate source maps
+
+<br />
+
+## Advanced Dead Code elimination and Cross Module Code Motion
 
 !SLIDE
 
@@ -25,11 +39,11 @@
 
 !SLIDE
 
-Then you encounter your first `ro.us`
+## Then you encounter your first `ro.us`
 
-![Our first ro.us encounter](../../images/first_rous_encounter.png)
+![.warning_image Our first ro.us encounter](../../images/first_rous_encounter.png)
 
-and spend hours hunting for a bug in externs
+## and spend hours hunting for a bug in externs
 
 !SLIDE
 

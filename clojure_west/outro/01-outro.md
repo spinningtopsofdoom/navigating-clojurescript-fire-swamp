@@ -8,6 +8,8 @@
 
 # There are many **Dread Pirate Roberts**
 
+<br />
+
 # Thanks
 - Bendyworks for supporting my presentation
 - Antonin Hildebrand for `cljs-oops` and helping me go over it
