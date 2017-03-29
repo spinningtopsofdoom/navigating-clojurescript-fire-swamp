@@ -1,6 +1,5 @@
 # External JavaScript
-## Third Party JavaScript Libraries
-## Not Handled by Google Closure Compiler
+## Not handled by Google Closure Compiler
 
 !SLIDE
 
@@ -117,7 +116,7 @@ Google Closure Compiler - `foo`.`bar`
 !SLIDE
 
 # Externs Inference
-## ClojureScript can generate externs for us as of `1.9.456`
+## Added in ClojureScript `1.9.456`
 
 !SLIDE
 
@@ -189,7 +188,8 @@ Wrap `getClouds` function in ClojureScript
 
 !SLIDE
 
-Add return type to `getClouds` and add `Clouds` externs to `inferred_externs.js`
+## Add return type to `getClouds`
+## Add `Clouds` externs to `inferred_externs.js`
 
     @@@javascript
     /*
@@ -227,8 +227,8 @@ Add `frog` to `inferred_externs.js`
 
 !SLIDE
 
-## Access string names via `goog.object/get` or `aget`
-## Advanced optimization does not rename String names
+## Use String Names via `goog.object/get` or `aget`
+## Advanced compilation does not rename String Names
 
     @@@clojure
     (ns my.app
@@ -345,13 +345,18 @@ Add `frog` to `inferred_externs.js`
 
 # Only prevent renaming
 ## Provide no information to Google Closure
-## Externs maximize Advanced compilation
+## Hampers advanced compilation
 
 !SLIDE
 
-# CLJSJS library is the best option
-## Externs file next best options
-## When neither exist look at
+# Prefer CLJSJS library or Externs file
+
+- Easier to use
+- Maximize advanced compilation effectiveness
+
+<br />
+
+# When neither exist look at
 
 - ClojureScript externs inference
 - `cljs-oops`

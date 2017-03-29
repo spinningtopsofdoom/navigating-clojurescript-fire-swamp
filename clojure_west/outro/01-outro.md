@@ -18,11 +18,4 @@
 
 !SLIDE
 
-# Additional Topics
-
-## Profiling ClojureScript
-## JavaScript Just In Time (JIT) Profiling
-
-!SLIDE
-
 # Questions?
