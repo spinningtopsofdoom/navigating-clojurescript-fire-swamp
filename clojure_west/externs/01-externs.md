@@ -1,4 +1,4 @@
-# Externs
+# External JavaScript
 ## Third Party JavaScript Libraries
 ## Not Handled by Google Closure Compiler
 
@@ -58,7 +58,20 @@ Google Closure Compiler
 
     @@@javascript
     var foo = {};
+    /*
+     * @param {string}
+     * @return {string}
+     * @nosideeffects
+     */
     foo.bar = function(greeting) {};
+
+!SLIDE
+
+# Externs more than preventing renaming
+## Help Google Closure advanced compilation
+
+- Type information
+- Indicate side effect free functions
 
 !SLIDE
 
@@ -72,7 +85,7 @@ Google Closure Compiler - `foo`.`bar`
 
 !SLIDE
 
-# All that is needed is to write down all the exported names of the projects JavaScript libraries
+# All that is needed is to richly annotate the api's of the projects JavaScript libraries
 
 !SLIDE
 
@@ -320,24 +333,25 @@ Add `frog` to `inferred_externs.js`
         (assoc-in home [:house :livingroom :color] "green")
         ;; => {:house {:livingroom {:color "green"}}}
 
-!SLIDE
-
-# Use in small doses
-## String Names defeats Google Closure Advanced Optimization
 
 !SLIDE
 
-## Opens up the JavaScript ecosystem
-### Selectively use library features with
+## Quickly use External JavaScript Libraries with
 
 - ClojureScript externs inference
 - `cljs-oops`
 
 !SLIDE
 
+# Only prevent renaming
+## Provide no information to Google Closure
+## Externs maximize Advanced compilation
+
+!SLIDE
+
 # CLJSJS library is the best option
 ## Externs file next best options
-## When neither exist use
+## When neither exist look at
 
 - ClojureScript externs inference
 - `cljs-oops`
